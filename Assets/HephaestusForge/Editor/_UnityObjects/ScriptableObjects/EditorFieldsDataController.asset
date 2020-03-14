@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5636119fcdd82440998e78cee6c4d32, type: 3}
+  m_Name: EditorFieldsDataController
+  m_EditorClassIdentifier: 
+  _boolFields:
+  - _fieldName: EditorBoolField
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 0
+    _fieldValue: 0
+  - _fieldName: EditorBoolField
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1042915266
+    _fieldValue: 0
+  - _fieldName: EditorBoolField
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1042915267
+    _fieldValue: 1
+  - _fieldName: EditorBoolField
+    _sceneGuid: None
+    _objectID: 10836
+    _fieldValue: 1
+  - _fieldName: EditorBoolField
+    _sceneGuid: None
+    _objectID: 10838
+    _fieldValue: 0
+  _floatFields:
+  - _fieldName: EditorFloatField
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 0
+    _fieldValue: 0
+  - _fieldName: EditorFloatField
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1042915266
+    _fieldValue: 0
+  - _fieldName: EditorFloatField
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1042915267
+    _fieldValue: 0
+  - _fieldName: EditorFloatField
+    _sceneGuid: None
+    _objectID: 10836
+    _fieldValue: 5.5
+  - _fieldName: EditorFloatField
+    _sceneGuid: None
+    _objectID: 10838
+    _fieldValue: 0
+  _intFields: []
+  _stringFields: []
+  _vector2Fields: []
+  _vector2IntFields: []
+  _vector3Fields: []
+  _vector3IntFields: []
+  _boolCollectionFields: []
+  _floatCollectionFields: []
+  _intCollectionFields: []
+  _stringCollectionFields: []
+  _vector2CollectionFields: []
+  _vector2IntCollectionFields: []
+  _vector3CollectionFields: []
+  _vector3IntCollectionFields: []
