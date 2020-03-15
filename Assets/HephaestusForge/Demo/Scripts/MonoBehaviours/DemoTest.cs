@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class DemoTest : MonoBehaviour
 {
-
+    [SerializeField]
+    private Test _test;
 }
