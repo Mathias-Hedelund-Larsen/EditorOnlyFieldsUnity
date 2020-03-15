@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(DemoTest))]
-public class DemoTestInspector : BaseEditorFieldOnlyInspector
+public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
 {
     protected override void OnEnable()
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace HephaestusForge
@@ -8,6 +9,9 @@ namespace HephaestusForge
         [Serializable]
         public abstract class EditorField<T>
         {
+            [SerializeField]
+            private MonoScript _usedInScript;
+
             [SerializeField]
             private string _fieldName;
 

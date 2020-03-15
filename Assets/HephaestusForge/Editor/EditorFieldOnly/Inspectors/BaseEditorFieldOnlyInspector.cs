@@ -12,17 +12,28 @@ namespace HephaestusForge
     {
         public abstract class BaseEditorFieldOnlyInspector : Editor
         {
+            private static SerializedObject _editorFieldsDataController;
+
             private int _objectID;
             private string _sceneGuid;
-            private SerializedObject _editorFieldsDataController;
+            private MonoScript _script;
             protected List<Tuple<string, SerializedProperty>> _requestedProperties = new List<Tuple<string, SerializedProperty>>();
 
             protected virtual void OnEnable()
             {
+                if (target is MonoBehaviour)
+                {
+                    _script = MonoScript.FromMonoBehaviour((MonoBehaviour)target);
+                }
+                else if(target is ScriptableObject)
+                {
+                    _script = MonoScript.FromScriptableObject((ScriptableObject)target);
+                }
+
                 if (AssetDatabase.Contains(target))
                 {
                     _sceneGuid = "None";
-                    _objectID = target.GetInstanceID();
+                    _objectID = target.GetInstanceID();                    
                 }
                 else if (PrefabStageUtility.GetCurrentPrefabStage() != null)
                 {
@@ -54,8 +65,11 @@ namespace HephaestusForge
                     }
                 }
 
-                _editorFieldsDataController = new SerializedObject(AssetDatabase.LoadAssetAtPath<EditorFieldsDataController>(
-                    AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:EditorFieldsDataController")[0])));
+                if (_editorFieldsDataController == null)
+                {
+                    _editorFieldsDataController = new SerializedObject(AssetDatabase.LoadAssetAtPath<EditorFieldsDataController>(
+                        AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:EditorFieldsDataController")[0])));
+                }
             }
 
             protected SerializedProperty RequestBoolField(string fieldName)
@@ -337,6 +351,7 @@ namespace HephaestusForge
                 targetPropertyHolder.FindPropertyRelative("_fieldName").stringValue = nameOfField;
                 targetPropertyHolder.FindPropertyRelative("_sceneGuid").stringValue = _sceneGuid;
                 targetPropertyHolder.FindPropertyRelative("_objectID").intValue = _objectID;
+                targetPropertyHolder.FindPropertyRelative("_usedInScript").objectReferenceValue = _script;
 
                 return targetPropertyHolder.FindPropertyRelative("_fieldValue");
             }
@@ -348,8 +363,9 @@ namespace HephaestusForge
                     var fieldName = array.GetArrayElementAtIndex(i).FindPropertyRelative("_fieldName");
                     var sceneGuid = array.GetArrayElementAtIndex(i).FindPropertyRelative("_sceneGuid");
                     var objectID = array.GetArrayElementAtIndex(i).FindPropertyRelative("_objectID");
+                    var script = array.GetArrayElementAtIndex(i).FindPropertyRelative("_usedInScript");
 
-                    if(fieldName.stringValue == nameOfField && sceneGuid.stringValue == _sceneGuid && objectID.intValue == _objectID)
+                    if (fieldName.stringValue == nameOfField && sceneGuid.stringValue == _sceneGuid && objectID.intValue == _objectID && script.objectReferenceValue == _script)
                     {
                         return array.GetArrayElementAtIndex(i).FindPropertyRelative("_fieldValue");
                     }
@@ -371,8 +387,17 @@ namespace HephaestusForge
 
                 if (EditorGUI.EndChangeCheck())
                 {
+                    EditorUtility.SetDirty(_editorFieldsDataController.targetObject);
+                }
+            }
+
+            private void OnDisable()
+            {
+                if (_editorFieldsDataController != null)
+                {
                     _editorFieldsDataController.ApplyModifiedProperties();
                     AssetDatabase.SaveAssets();
+                    _editorFieldsDataController = null;
                 }
             }
         }

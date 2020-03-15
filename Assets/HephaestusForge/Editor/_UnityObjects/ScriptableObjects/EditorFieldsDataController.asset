@@ -13,46 +13,26 @@ MonoBehaviour:
   m_Name: EditorFieldsDataController
   m_EditorClassIdentifier: 
   _boolFields:
-  - _fieldName: EditorBoolField
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorBoolField
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 0
-    _fieldValue: 0
-  - _fieldName: EditorBoolField
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1042915266
-    _fieldValue: 0
-  - _fieldName: EditorBoolField
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1042915267
+    _objectID: 1065817818
     _fieldValue: 1
-  - _fieldName: EditorBoolField
-    _sceneGuid: None
-    _objectID: 10836
-    _fieldValue: 1
-  - _fieldName: EditorBoolField
-    _sceneGuid: None
-    _objectID: 10838
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorBoolField
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1065817820
     _fieldValue: 0
   _floatFields:
-  - _fieldName: EditorFloatField
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorFloatField
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 0
+    _objectID: 1065817818
     _fieldValue: 0
-  - _fieldName: EditorFloatField
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorFloatField
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1042915266
-    _fieldValue: 0
-  - _fieldName: EditorFloatField
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1042915267
-    _fieldValue: 0
-  - _fieldName: EditorFloatField
-    _sceneGuid: None
-    _objectID: 10836
-    _fieldValue: 5.5
-  - _fieldName: EditorFloatField
-    _sceneGuid: None
-    _objectID: 10838
+    _objectID: 1065817820
     _fieldValue: 0
   _intFields: []
   _stringFields: []
