@@ -11,7 +11,8 @@ public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
     {
         base.OnEnable();
 
+        _fieldsAvailableAtEditorRunTime = true;
         RequestBoolField("EditorBoolField");
-        RequestFloatField("EditorFloatField");
+        RequestBoolCollectionField("BoolCollectionInEditor");
     }
 }

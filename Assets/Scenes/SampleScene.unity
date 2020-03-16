@@ -293,6 +293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _test:
+  - _value: 0
+  - _value: 2
+  _please:
     _value: 0
 --- !u!4 &1703117564
 Transform:

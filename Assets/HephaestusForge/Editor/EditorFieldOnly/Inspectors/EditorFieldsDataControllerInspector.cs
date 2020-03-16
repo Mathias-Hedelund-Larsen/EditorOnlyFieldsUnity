@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -103,6 +104,19 @@ namespace HephaestusForge
 
                 CheckForRemove(vector3IntCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
                 Draw(vector3IntCollectionFieldsArray, openScenes, inspectorModeInfo);
+
+
+                if (GUILayout.Button("Open folder for available fields"))
+                {
+                    if (Directory.Exists($"{Application.persistentDataPath}/{BaseEditorFieldOnlyInspector.FIELDS_DIRECTORY}"))
+                    {
+                        System.Diagnostics.Process.Start($"{Application.persistentDataPath}/{BaseEditorFieldOnlyInspector.FIELDS_DIRECTORY}");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Process.Start($"{Application.persistentDataPath}");
+                    }
+                }
             }
 
             private void CheckForRemove(SerializedProperty fieldsArray, List<Scene> openScenes, List<int> indexesToClear, PropertyInfo inspectorModeInfo)

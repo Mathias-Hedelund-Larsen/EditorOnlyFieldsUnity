@@ -22,6 +22,9 @@ namespace HephaestusForge
             private int _objectID;
 
             [SerializeField]
+            private string _guidPath;
+
+            [SerializeField]
             private T _fieldValue;
         }
     }

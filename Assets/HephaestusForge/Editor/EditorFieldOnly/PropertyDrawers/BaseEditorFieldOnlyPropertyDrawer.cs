@@ -13,13 +13,16 @@ namespace HephaestusForge
     {
         public abstract class BaseEditorFieldOnlyPropertyDrawer : PropertyDrawer
 		{
-            private bool _initialized;
+            private string _propertyPath;
+            private List<string> _initialized = new List<string>();
+
             protected int _objectID;
             protected string _sceneGuid;
             protected MonoScript _script;
-            private float _heightOffset = 3;
+            protected float _heightOffset = 3;
             protected bool _shouldBaseDraw = true;
-            protected List<Tuple<string, SerializedProperty>> _requestedProperties = new List<Tuple<string, SerializedProperty>>();
+            protected bool _shouldBaseDrawPropertyChildren = true;
+            protected Dictionary<string, List<Tuple<string, SerializedProperty>>> _requestedProperties = new Dictionary<string, List<Tuple<string, SerializedProperty>>>();
 
             #region FieldRequests
             protected SerializedProperty RequestBoolField(string fieldName)
@@ -35,7 +38,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedBool));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedBool) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedBool));
+                }
+
                 return serializedBool;
             }
 
@@ -52,7 +63,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedBoolCollection));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedBoolCollection) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedBoolCollection));
+                }
+
                 return serializedBoolCollection;
             }
 
@@ -69,7 +88,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedFloat));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedFloat) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedFloat));
+                }
+
                 return serializedFloat;
             }
 
@@ -86,7 +113,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedFloatCollection));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedFloatCollection) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedFloatCollection));
+                }
+
                 return serializedFloatCollection;
             }
 
@@ -103,7 +138,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedInt));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedInt) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedInt));
+                }
+
                 return serializedInt;
             }
 
@@ -120,7 +163,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedIntCollection));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedIntCollection) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedIntCollection));
+                }
+
                 return serializedIntCollection;
             }
 
@@ -137,7 +188,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedString));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedString) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedString));
+                }
+
                 return serializedString;
             }
 
@@ -154,7 +213,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedStringCollection));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedStringCollection) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedStringCollection));
+                }
+
                 return serializedStringCollection;
             }
 
@@ -171,7 +238,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector2) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2));
+                }
+
                 return serializedVector2;
             }
 
@@ -188,7 +263,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2Collection));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector2Collection) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2Collection));
+                }
+
                 return serializedVector2Collection;
             }
 
@@ -205,7 +288,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2Int));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector2Int) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2Int));
+                }
+
                 return serializedVector2Int;
             }
 
@@ -222,7 +313,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2IntCollection));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector2IntCollection) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2IntCollection));
+                }
+
                 return serializedVector2IntCollection;
             }
 
@@ -239,7 +338,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector3) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3));
+                }
+
                 return serializedVector3;
             }
 
@@ -256,7 +363,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3Collection));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector3Collection) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3Collection));
+                }
+
                 return serializedVector3Collection;
             }
 
@@ -273,7 +388,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3Int));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector3Int) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3Int));
+                }
+
                 return serializedVector3Int;
             }
 
@@ -290,7 +413,15 @@ namespace HephaestusForge
                     AssetDatabase.SaveAssets();
                 }
 
-                _requestedProperties.Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3IntCollection));
+                if (!_requestedProperties.ContainsKey(_propertyPath))
+                {
+                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector3IntCollection) });
+                }
+                else
+                {
+                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3IntCollection));
+                }
+
                 return serializedVector3IntCollection;
             }
 
@@ -299,7 +430,7 @@ namespace HephaestusForge
                 array.arraySize++;
 
                 var targetPropertyHolder = array.GetArrayElementAtIndex(array.arraySize - 1);
-                targetPropertyHolder.FindPropertyRelative("_fieldName").stringValue = nameOfField;
+                targetPropertyHolder.FindPropertyRelative("_fieldName").stringValue = $"{_propertyPath}.{nameOfField}";
                 targetPropertyHolder.FindPropertyRelative("_sceneGuid").stringValue = _sceneGuid;
                 targetPropertyHolder.FindPropertyRelative("_objectID").intValue = _objectID;
                 targetPropertyHolder.FindPropertyRelative("_usedInScript").objectReferenceValue = _script;
@@ -316,7 +447,8 @@ namespace HephaestusForge
                     var objectID = array.GetArrayElementAtIndex(i).FindPropertyRelative("_objectID");
                     var script = array.GetArrayElementAtIndex(i).FindPropertyRelative("_usedInScript");
 
-                    if (fieldName.stringValue == nameOfField && sceneGuid.stringValue == _sceneGuid && objectID.intValue == _objectID && script.objectReferenceValue == _script)
+                    if (fieldName.stringValue == $"{_propertyPath}.{nameOfField}" && sceneGuid.stringValue == _sceneGuid && objectID.intValue == _objectID && 
+                        script.objectReferenceValue == _script)
                     {
                         return array.GetArrayElementAtIndex(i).FindPropertyRelative("_fieldValue");
                     }
@@ -382,11 +514,16 @@ namespace HephaestusForge
                     }
                 }
 
-                RequestFields();
-                _initialized = true;
+                _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>());
+
+                Init();
             }
 
-            protected abstract void RequestFields();          
+            protected abstract void Init();
+
+            protected abstract void OnGUI(Rect position, SerializedProperty[] children);
+
+            protected abstract int GetPropertyHeight(SerializedProperty[] children);
 
             public override bool CanCacheInspectorGUI(SerializedProperty property)
             {
@@ -394,10 +531,13 @@ namespace HephaestusForge
             }
 
             public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-            {               
-                if (!_initialized)
+            {
+                _propertyPath = property.propertyPath;
+
+                if (!_initialized.Contains(_propertyPath))
                 {
-                    Init(property);                    
+                    _initialized.Add(_propertyPath);
+                    Init(property);
                 }
 
                 float propertyHeight = 0;
@@ -406,26 +546,37 @@ namespace HephaestusForge
                 {
                     if (property.isExpanded)
                     {
-                        for (int i = 0; i < _requestedProperties.Count; i++)
+                        if (!EditorApplication.isPlaying)
                         {
-                            if (_requestedProperties[i].Item2.isArray)
+                            for (int i = 0; i < _requestedProperties[_propertyPath].Count; i++)
                             {
-                                if (_requestedProperties[i].Item2.isExpanded)
+                                if (_requestedProperties[_propertyPath][i].Item2.isArray)
                                 {
-                                    propertyHeight += (_requestedProperties[i].Item2.arraySize + 1) * (EditorGUIUtility.singleLineHeight + _heightOffset);
+                                    if (_requestedProperties[_propertyPath][i].Item2.isExpanded)
+                                    {
+                                        propertyHeight += (_requestedProperties[_propertyPath][i].Item2.arraySize + 1) * (EditorGUIUtility.singleLineHeight + _heightOffset);
+                                    }
                                 }
+
+                                propertyHeight += EditorGUIUtility.singleLineHeight + _heightOffset;
                             }
 
-                            propertyHeight += EditorGUIUtility.singleLineHeight + _heightOffset;
                         }
 
                         propertyHeight += EditorGUIUtility.singleLineHeight + _heightOffset;
 
                         var children = property.GetVisibleChildren().ToArray();
 
-                        for (int i = 0; i < children.Length; i++)
+                        if (_shouldBaseDrawPropertyChildren)
                         {
-                            propertyHeight += EditorGUIUtility.singleLineHeight + _heightOffset;
+                            for (int i = 0; i < children.Length; i++)
+                            {
+                                propertyHeight += EditorGUIUtility.singleLineHeight + _heightOffset;
+                            }
+                        }
+                        else
+                        {
+                            GetPropertyHeight(children);
                         }
                     }
                     else
@@ -438,9 +589,12 @@ namespace HephaestusForge
             }
 
             public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-            {                
-                if (!_initialized)
+            {
+                _propertyPath = property.propertyPath;
+
+                if (!_initialized.Contains(_propertyPath))
                 {
+                    _initialized.Add(_propertyPath);
                     Init(property);
                 }
 
@@ -463,40 +617,51 @@ namespace HephaestusForge
                         position.width -= 10;
                         position.y += EditorGUIUtility.singleLineHeight + _heightOffset;
 
-                        EditorGUI.BeginChangeCheck();
-
-                        for (int i = 0; i < _requestedProperties.Count; i++)
+                        if (!EditorApplication.isPlaying)
                         {
-                            if (_requestedProperties[i].Item2.isArray)
-                            {
-                                EditorGUI.PropertyField(position, _requestedProperties[i].Item2, new GUIContent(_requestedProperties[i].Item1), true);
+                            EditorGUI.BeginChangeCheck();
 
-                                if (_requestedProperties[i].Item2.isExpanded)
+                            for (int i = 0; i < _requestedProperties[_propertyPath].Count; i++)
+                            {
+                                if (_requestedProperties[_propertyPath][i].Item2.isArray)
                                 {
-                                    position.y += (_requestedProperties[i].Item2.arraySize + 1) * (EditorGUIUtility.singleLineHeight + _heightOffset);
+                                    EditorGUI.PropertyField(position, _requestedProperties[_propertyPath][i].Item2, new GUIContent(_requestedProperties[_propertyPath][i].Item1), true);
+
+                                    if (_requestedProperties[_propertyPath][i].Item2.isExpanded)
+                                    {
+                                        position.y += (_requestedProperties[_propertyPath][i].Item2.arraySize + 1) * (EditorGUIUtility.singleLineHeight + _heightOffset);
+                                    }
                                 }
+                                else
+                                {
+                                    EditorGUI.PropertyField(position, _requestedProperties[_propertyPath][i].Item2, new GUIContent(_requestedProperties[_propertyPath][i].Item1), false);
+                                }
+
+                                position.y += EditorGUIUtility.singleLineHeight + _heightOffset;
                             }
-                            else
+
+                            if (EditorGUI.EndChangeCheck())
                             {
-                                EditorGUI.PropertyField(position, _requestedProperties[i].Item2, new GUIContent(_requestedProperties[i].Item1), false);
+                                EditorUtility.SetDirty(BaseEditorFieldOnlyInspector._EditorFieldsDataController.targetObject);
                             }
-
-                            position.y += EditorGUIUtility.singleLineHeight + _heightOffset;
-                        }
-
-                        if (EditorGUI.EndChangeCheck())
-                        {
-                            EditorUtility.SetDirty(BaseEditorFieldOnlyInspector._EditorFieldsDataController.targetObject);
                         }
 
                         EditorGUI.BeginChangeCheck();
 
                         var children = property.GetVisibleChildren().ToArray();
 
-                        for (int i = 0; i < children.Length; i++)
+                        if (_shouldBaseDrawPropertyChildren)
                         {
-                            EditorGUI.PropertyField(position, children[i], false);
-                            position.y += EditorGUIUtility.singleLineHeight;
+
+                            for (int i = 0; i < children.Length; i++)
+                            {
+                                EditorGUI.PropertyField(position, children[i], false);
+                                position.y += EditorGUIUtility.singleLineHeight;
+                            }
+                        }
+                        else
+                        {
+                            OnGUI(position, children);
                         }
 
                         if (EditorGUI.EndChangeCheck())
@@ -510,6 +675,7 @@ namespace HephaestusForge
             private void OnDisable()
 			{
 				Selection.selectionChanged -= OnDisable;
+                _initialized.Clear();
 
 				if (BaseEditorFieldOnlyInspector._EditorFieldsDataController != null)
 				{

@@ -17,25 +17,52 @@ MonoBehaviour:
     _fieldName: EditorBoolField
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
     _objectID: 1703117563
-    _fieldValue: 0
+    _guidPath: baa07cbaf537ae646a208e8b3e208b1b
+    _fieldValue: 1
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorTestBool
+    _fieldName: _test.EditorTestBool
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
     _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: 1
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _test.Array.data[0].EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: 0
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _please.EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: 1
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _test.Array.data[1].EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
     _fieldValue: 1
   _floatFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorFloatField
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
     _objectID: 1703117563
-    _fieldValue: 1.5
+    _guidPath: 
+    _fieldValue: -0.5
   _intFields: []
   _stringFields: []
   _vector2Fields: []
   _vector2IntFields: []
   _vector3Fields: []
   _vector3IntFields: []
-  _boolCollectionFields: []
+  _boolCollectionFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: BoolCollectionInEditor
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: baa07cbaf537ae646a208e8b3e208b1b
+    _fieldValue: 0000000101
   _floatCollectionFields: []
   _intCollectionFields: []
   _stringCollectionFields: []

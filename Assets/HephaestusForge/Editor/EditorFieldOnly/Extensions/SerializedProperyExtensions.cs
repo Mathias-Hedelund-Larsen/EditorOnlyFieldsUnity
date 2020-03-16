@@ -46,7 +46,10 @@ namespace HephaestusForge
                 {
                     do
                     {
-                        yield return currentProperty.Copy();
+                        if (currentProperty.propertyPath.Contains(serializedProperty.propertyPath))
+                        {
+                            yield return currentProperty.Copy();
+                        }
                     } 
                     while (currentProperty.NextVisible(false));
                 }
