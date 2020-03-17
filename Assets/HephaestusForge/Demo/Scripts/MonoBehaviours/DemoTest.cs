@@ -19,7 +19,6 @@ public class DemoTest : MonoBehaviour
 
 #endif
 
-
     private void Awake()
     {
 #if UNITY_EDITOR

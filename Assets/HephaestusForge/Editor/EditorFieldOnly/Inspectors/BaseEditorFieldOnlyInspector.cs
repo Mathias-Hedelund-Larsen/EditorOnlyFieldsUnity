@@ -94,6 +94,7 @@ namespace HephaestusForge
                 _fieldNames.Add("FileID");
             }
 
+            #region FieldRequestsAndSetup
             protected SerializedProperty RequestBoolField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
                 bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
@@ -668,7 +669,6 @@ namespace HephaestusForge
                     return null;
                 }
             }
-
             private SerializedProperty IncreaseArray(SerializedProperty array, string nameOfField)
             {
                 array.arraySize++;
@@ -763,6 +763,7 @@ namespace HephaestusForge
 
                 _EditorFieldsDataController.ApplyModifiedProperties();
             }
+            #endregion
 
             public override void OnInspectorGUI()
             {

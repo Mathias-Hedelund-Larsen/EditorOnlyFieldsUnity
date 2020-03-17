@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -13,432 +13,610 @@ namespace HephaestusForge
     {
         public abstract class BaseEditorFieldOnlyPropertyDrawer : PropertyDrawer
 		{
+            private string _guid;
             private string _propertyPath;
+            private List<string> _fieldNames = new List<string>();
             private List<string> _initialized = new List<string>();
 
             protected int _objectID;
+            private string _filePath;
             protected string _sceneGuid;
             protected MonoScript _script;
             protected float _heightOffset = 3;
+            private List<string> _fileDataList;
             protected bool _shouldBaseDraw = true;
             protected bool _shouldBaseDrawPropertyChildren = true;
-            protected Dictionary<string, List<Tuple<string, SerializedProperty>>> _requestedProperties = new Dictionary<string, List<Tuple<string, SerializedProperty>>>();
+            protected Dictionary<string, List<EditorFieldDrawingCriteria>> _requestedProperties = new Dictionary<string, List<EditorFieldDrawingCriteria>>();
 
-            #region FieldRequests
-            protected SerializedProperty RequestBoolField(string fieldName)
+            #region FieldRequestsAndSetup
+            protected SerializedProperty RequestBoolField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var boolFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_boolFields");
-
-                var serializedBool = SearchPropertyArray(boolFields, fieldName);
-
-                if (serializedBool == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedBool = IncreaseArray(boolFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var boolFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_boolFields");
+                    var serializedBoolParent = SearchForPropertyInArray(boolFields, fieldName);
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedBool) });
+                    if (serializedBoolParent == null)
+                    {
+                        serializedBoolParent = IncreaseArray(boolFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedBool = serializedBoolParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedBoolParent, fieldName, serializedBool.propertyType.ToString());
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedBool, 
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedBool;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedBool));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedBool;
             }
 
-            protected SerializedProperty RequestBoolCollectionField(string fieldName)
+            protected SerializedProperty RequestBoolCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var boolCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_boolCollectionFields");
-
-                var serializedBoolCollection = SearchPropertyArray(boolCollectionFields, fieldName);
-
-                if (serializedBoolCollection == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedBoolCollection = IncreaseArray(boolCollectionFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var boolCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_boolCollectionFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedBoolCollection) });
+                    var serializedBoolCollectionParent = SearchForPropertyInArray(boolCollectionFields, fieldName);
+
+                    if (serializedBoolCollectionParent == null)
+                    {
+                        serializedBoolCollectionParent = IncreaseArray(boolCollectionFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedBoolCollection = serializedBoolCollectionParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedBoolCollectionParent, fieldName, BaseEditorFieldOnlyInspector.BOOL_ARRAY);
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedBoolCollection,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedBoolCollection;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedBoolCollection));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedBoolCollection;
             }
 
-            protected SerializedProperty RequestFloatField(string fieldName)
+            protected SerializedProperty RequestFloatField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var floatFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_floatFields");
-
-                var serializedFloat = SearchPropertyArray(floatFields, fieldName);
-
-                if (serializedFloat == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedFloat = IncreaseArray(floatFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var floatFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_floatFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedFloat) });
+                    var serializedFloatParent = SearchForPropertyInArray(floatFields, fieldName);
+
+                    if (serializedFloatParent == null)
+                    {
+                        serializedFloatParent = IncreaseArray(floatFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedFloat = serializedFloatParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedFloatParent, fieldName, serializedFloat.propertyType.ToString());
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedFloat,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedFloat;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedFloat));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedFloat;
             }
 
-            protected SerializedProperty RequestFloatCollectionField(string fieldName)
+            protected SerializedProperty RequestFloatCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var floatCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_floatCollectionFields");
-
-                var serializedFloatCollection = SearchPropertyArray(floatCollectionFields, fieldName);
-
-                if (serializedFloatCollection == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedFloatCollection = IncreaseArray(floatCollectionFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var floatCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_floatCollectionFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedFloatCollection) });
+                    var serializedFloatCollectionParent = SearchForPropertyInArray(floatCollectionFields, fieldName);
+
+                    if (serializedFloatCollectionParent == null)
+                    {
+                        serializedFloatCollectionParent = IncreaseArray(floatCollectionFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedFloatCollection = serializedFloatCollectionParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedFloatCollectionParent, fieldName, BaseEditorFieldOnlyInspector.FLOAT_ARRAY);
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedFloatCollection,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedFloatCollection;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedFloatCollection));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedFloatCollection;
             }
 
-            protected SerializedProperty RequestIntField(string fieldName)
+            protected SerializedProperty RequestIntField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var intFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_intFields");
-
-                var serializedInt = SearchPropertyArray(intFields, fieldName);
-
-                if (serializedInt == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedInt = IncreaseArray(intFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var intFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_intFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedInt) });
+                    var serializedIntParent = SearchForPropertyInArray(intFields, fieldName);
+
+                    if (serializedIntParent == null)
+                    {
+                        serializedIntParent = IncreaseArray(intFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedInt = serializedIntParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedIntParent, fieldName, serializedInt.propertyType.ToString());
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedInt,
+                         enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedInt;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedInt));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedInt;
             }
 
-            protected SerializedProperty RequestIntCollectionField(string fieldName)
+            protected SerializedProperty RequestIntCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var intCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_intCollectionFields");
-
-                var serializedIntCollection = SearchPropertyArray(intCollectionFields, fieldName);
-
-                if (serializedIntCollection == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedIntCollection = IncreaseArray(intCollectionFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var intCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_intCollectionFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedIntCollection) });
+                    var serializedIntCollectionParent = SearchForPropertyInArray(intCollectionFields, fieldName);
+
+                    if (serializedIntCollectionParent == null)
+                    {
+                        serializedIntCollectionParent = IncreaseArray(intCollectionFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedIntCollection = serializedIntCollectionParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedIntCollectionParent, fieldName, BaseEditorFieldOnlyInspector.INT_ARRAY);
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedIntCollection,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedIntCollection;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedIntCollection));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedIntCollection;
             }
 
-            protected SerializedProperty RequestStringField(string fieldName)
+            protected SerializedProperty RequestStringField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var stringFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_stringFields");
-
-                var serializedString = SearchPropertyArray(stringFields, fieldName);
-
-                if (serializedString == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedString = IncreaseArray(stringFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var stringFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_stringFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedString) });
+                    var serializedStringParent = SearchForPropertyInArray(stringFields, fieldName);
+
+                    if (serializedStringParent == null)
+                    {
+                        serializedStringParent = IncreaseArray(stringFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedString = serializedStringParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedStringParent, fieldName, serializedString.propertyType.ToString());
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedString,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedString;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedString));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedString;
             }
 
-            protected SerializedProperty RequestStringCollectionField(string fieldName)
+            protected SerializedProperty RequestStringCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var stringCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_stringCollectionFields");
-
-                var serializedStringCollection = SearchPropertyArray(stringCollectionFields, fieldName);
-
-                if (serializedStringCollection == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedStringCollection = IncreaseArray(stringCollectionFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var stringCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_stringCollectionFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedStringCollection) });
+                    var serializedStringCollectionParent = SearchForPropertyInArray(stringCollectionFields, fieldName);
+
+                    if (serializedStringCollectionParent == null)
+                    {
+                        serializedStringCollectionParent = IncreaseArray(stringCollectionFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedStringcollection = serializedStringCollectionParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedStringCollectionParent, fieldName, BaseEditorFieldOnlyInspector.STRING_ARRAY);
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedStringcollection,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedStringcollection;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedStringCollection));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedStringCollection;
             }
 
-            protected SerializedProperty RequestVector2Field(string fieldName)
+            protected SerializedProperty RequestVector2Field(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var vector2Fields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector2Fields");
-
-                var serializedVector2 = SearchPropertyArray(vector2Fields, fieldName);
-
-                if (serializedVector2 == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedVector2 = IncreaseArray(vector2Fields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var vector2Fields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector2Fields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector2) });
+                    var serializedVector2Parent = SearchForPropertyInArray(vector2Fields, fieldName);
+
+                    if (serializedVector2Parent == null)
+                    {
+                        serializedVector2Parent = IncreaseArray(vector2Fields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedVector2 = serializedVector2Parent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedVector2Parent, fieldName, serializedVector2.propertyType.ToString());
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector2,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedVector2;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedVector2;
             }
 
-            protected SerializedProperty RequestVector2CollectionField(string fieldName)
+            protected SerializedProperty RequestVector2CollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var vector2CollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector2CollectionFields");
-
-                var serializedVector2Collection = SearchPropertyArray(vector2CollectionFields, fieldName);
-
-                if (serializedVector2Collection == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedVector2Collection = IncreaseArray(vector2CollectionFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var vector2CollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector2CollectionFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector2Collection) });
+                    var serializedVector2CollectionParent = SearchForPropertyInArray(vector2CollectionFields, fieldName);
+
+                    if (serializedVector2CollectionParent == null)
+                    {
+                        serializedVector2CollectionParent = IncreaseArray(vector2CollectionFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedVector2Collection = serializedVector2CollectionParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedVector2CollectionParent, fieldName, BaseEditorFieldOnlyInspector.VECTOR2_ARRAY);
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector2Collection,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedVector2Collection;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2Collection));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedVector2Collection;
             }
 
-            protected SerializedProperty RequestVector2IntField(string fieldName)
+            protected SerializedProperty RequestVector2IntField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var vector2IntFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector2IntFields");
-
-                var serializedVector2Int = SearchPropertyArray(vector2IntFields, fieldName);
-
-                if (serializedVector2Int == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedVector2Int = IncreaseArray(vector2IntFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var vector2IntFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector2IntFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector2Int) });
+                    var serializedVector2IntParent = SearchForPropertyInArray(vector2IntFields, fieldName);
+
+                    if (serializedVector2IntParent == null)
+                    {
+                        serializedVector2IntParent = IncreaseArray(vector2IntFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedVector2Int = serializedVector2IntParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedVector2IntParent, fieldName, serializedVector2Int.propertyType.ToString());
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector2Int,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedVector2Int;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2Int));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedVector2Int;
             }
 
-            protected SerializedProperty RequestVector2IntCollectionField(string fieldName)
+            protected SerializedProperty RequestVector2IntCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var vector2IntCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector2IntCollectionFields");
-
-                var serializedVector2IntCollection = SearchPropertyArray(vector2IntCollectionFields, fieldName);
-
-                if (serializedVector2IntCollection == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedVector2IntCollection = IncreaseArray(vector2IntCollectionFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var vector2IntCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector2IntCollectionFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector2IntCollection) });
+                    var serializedVector2IntCollectionParent = SearchForPropertyInArray(vector2IntCollectionFields, fieldName);
+
+                    if (serializedVector2IntCollectionParent == null)
+                    {
+                        serializedVector2IntCollectionParent = IncreaseArray(vector2IntCollectionFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedVector2IntCollection = serializedVector2IntCollectionParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedVector2IntCollectionParent, fieldName, BaseEditorFieldOnlyInspector.VECTOR2INT_ARRAY);
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector2IntCollection,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedVector2IntCollection;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector2IntCollection));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedVector2IntCollection;
             }
 
-            protected SerializedProperty RequestVector3Field(string fieldName)
+            protected SerializedProperty RequestVector3Field(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var vector3Fields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector3Fields");
-
-                var serializedVector3 = SearchPropertyArray(vector3Fields, fieldName);
-
-                if (serializedVector3 == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedVector3 = IncreaseArray(vector3Fields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var vector3Fields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector3Fields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector3) });
+                    var serializedVector3Parent = SearchForPropertyInArray(vector3Fields, fieldName);
+
+                    if (serializedVector3Parent == null)
+                    {
+                        serializedVector3Parent = IncreaseArray(vector3Fields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedVector3 = serializedVector3Parent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedVector3Parent, fieldName, serializedVector3.propertyType.ToString());
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector3,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedVector3;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedVector3;
             }
 
-            protected SerializedProperty RequestVector3CollectionField(string fieldName)
+            protected SerializedProperty RequestVector3CollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var vector3CollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector3CollectionFields");
-
-                var serializedVector3Collection = SearchPropertyArray(vector3CollectionFields, fieldName);
-
-                if (serializedVector3Collection == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedVector3Collection = IncreaseArray(vector3CollectionFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var vector3CollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector3CollectionFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector3Collection) });
+                    var serializedVector3CollectionParent = SearchForPropertyInArray(vector3CollectionFields, fieldName);
+
+                    if (serializedVector3CollectionParent == null)
+                    {
+                        serializedVector3CollectionParent = IncreaseArray(vector3CollectionFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedVector3Collection = serializedVector3CollectionParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedVector3CollectionParent, fieldName, BaseEditorFieldOnlyInspector.VECTOR3_ARRAY);
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector3Collection,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedVector3Collection;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3Collection));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedVector3Collection;
             }
 
-            protected SerializedProperty RequestVector3IntField(string fieldName)
+            protected SerializedProperty RequestVector3IntField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var vector3IntFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector3IntFields");
-
-                var serializedVector3Int = SearchPropertyArray(vector3IntFields, fieldName);
-
-                if (serializedVector3Int == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedVector3Int = IncreaseArray(vector3IntFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var vector3IntFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector3IntFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector3Int) });
+                    var serializedVector3IntParent = SearchForPropertyInArray(vector3IntFields, fieldName);
+
+                    if (serializedVector3IntParent == null)
+                    {
+                        serializedVector3IntParent = IncreaseArray(vector3IntFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedVector3Int = serializedVector3IntParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedVector3IntParent, fieldName, serializedVector3Int.propertyType.ToString());
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector3Int,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedVector3Int;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3Int));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedVector3Int;
             }
 
-            protected SerializedProperty RequestVector3IntCollectionField(string fieldName)
+            protected SerializedProperty RequestVector3IntCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
+                bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
             {
-                var vector3IntCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector3IntCollectionFields");
-
-                var serializedVector3IntCollection = SearchPropertyArray(vector3IntCollectionFields, fieldName);
-
-                if (serializedVector3IntCollection == null)
+                if (!_fieldNames.Contains(fieldName))
                 {
-                    serializedVector3IntCollection = IncreaseArray(vector3IntCollectionFields, fieldName);
-                    BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
-                    AssetDatabase.SaveAssets();
-                }
+                    var vector3IntCollectionFields = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_vector3IntCollectionFields");
 
-                if (!_requestedProperties.ContainsKey(_propertyPath))
-                {
-                    _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>() { new Tuple<string, SerializedProperty>(fieldName, serializedVector3IntCollection) });
+                    var serializedVector3IntCollectionParent = SearchForPropertyInArray(vector3IntCollectionFields, fieldName);
+
+                    if (serializedVector3IntCollectionParent == null)
+                    {
+                        serializedVector3IntCollectionParent = IncreaseArray(vector3IntCollectionFields, fieldName);
+                        BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+                    }
+
+                    var serializedVector3IntCollection = serializedVector3IntCollectionParent.FindPropertyRelative("_fieldValue");
+
+                    if (enableFieldAvailabilityForEditorPlayMode)
+                    {
+                        EnableFieldForEditorRunTime(serializedVector3IntCollectionParent, fieldName, BaseEditorFieldOnlyInspector.VECTOR3INT_ARRAY);
+                    }
+
+                    _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector3IntCollection,
+                        enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+
+                    _fieldNames.Add(fieldName);
+
+                    return serializedVector3IntCollection;
                 }
                 else
                 {
-                    _requestedProperties[_propertyPath].Add(new Tuple<string, SerializedProperty>(fieldName, serializedVector3IntCollection));
+                    Debug.LogError($"The fieldname: {fieldName} is already in use please keep the fieldnames unique");
+                    return null;
                 }
-
-                return serializedVector3IntCollection;
             }
-
             private SerializedProperty IncreaseArray(SerializedProperty array, string nameOfField)
             {
                 array.arraySize++;
 
                 var targetPropertyHolder = array.GetArrayElementAtIndex(array.arraySize - 1);
-                targetPropertyHolder.FindPropertyRelative("_fieldName").stringValue = $"{_propertyPath}.{nameOfField}";
+                targetPropertyHolder.FindPropertyRelative("_fieldName").stringValue = nameOfField;
                 targetPropertyHolder.FindPropertyRelative("_sceneGuid").stringValue = _sceneGuid;
                 targetPropertyHolder.FindPropertyRelative("_objectID").intValue = _objectID;
                 targetPropertyHolder.FindPropertyRelative("_usedInScript").objectReferenceValue = _script;
 
-                return targetPropertyHolder.FindPropertyRelative("_fieldValue");
+                return targetPropertyHolder;
             }
 
-            private SerializedProperty SearchPropertyArray(SerializedProperty array, string nameOfField)
+            private SerializedProperty SearchForPropertyInArray(SerializedProperty array, string nameOfField)
             {
                 for (int i = 0; i < array.arraySize; i++)
                 {
@@ -447,16 +625,211 @@ namespace HephaestusForge
                     var objectID = array.GetArrayElementAtIndex(i).FindPropertyRelative("_objectID");
                     var script = array.GetArrayElementAtIndex(i).FindPropertyRelative("_usedInScript");
 
-                    if (fieldName.stringValue == $"{_propertyPath}.{nameOfField}" && sceneGuid.stringValue == _sceneGuid && objectID.intValue == _objectID && 
-                        script.objectReferenceValue == _script)
+                    if (fieldName.stringValue == nameOfField && sceneGuid.stringValue == _sceneGuid && objectID.intValue == _objectID && script.objectReferenceValue == _script)
                     {
-                        return array.GetArrayElementAtIndex(i).FindPropertyRelative("_fieldValue");
+                        return array.GetArrayElementAtIndex(i);
                     }
                 }
 
                 return null;
             }
+
+            private void EnableFieldForEditorRunTime(SerializedProperty serializedFieldParent, string fieldName, string fieldType)
+            {
+                var guid = serializedFieldParent.FindPropertyRelative("_guidPath");
+
+                if (guid.stringValue != string.Empty)
+                {
+                    _guid = guid.stringValue;
+                }
+
+                if (_guid == null)
+                {
+                    _guid = GUID.Generate().ToString();
+                }
+
+                guid.stringValue = _guid;
+
+                _filePath = $"{Application.persistentDataPath}/{BaseEditorFieldOnlyInspector.FIELDS_DIRECTORY}/{_guid}.txt";
+
+                if (!Directory.Exists($"{Application.persistentDataPath}/{BaseEditorFieldOnlyInspector.FIELDS_DIRECTORY}"))
+                {
+                    Directory.CreateDirectory($"{Application.persistentDataPath}/{BaseEditorFieldOnlyInspector.FIELDS_DIRECTORY}");
+                }
+
+
+                if (!File.Exists(_filePath))
+                {
+                    using (var stream = File.Create(_filePath)) { }
+                }
+
+                string fileData = string.Empty;
+
+                using (var reader = new StreamReader(_filePath))
+                {
+                    fileData = reader.ReadToEnd();
+                }
+
+                _fileDataList = fileData.Split('\n').ToList();
+
+                for (int i = _fileDataList.Count - 1; i >= 0; i--)
+                {
+                    if (_fileDataList[i] == string.Empty)
+                    {
+                        _fileDataList.RemoveAt(i);
+                    }
+                }
+
+                if (!_fileDataList.Any(s => s.Contains($"{fieldName}:{fieldType}=")))
+                {
+                    using (var writer = new StreamWriter(_filePath))
+                    {
+                        for (int i = 0; i < _fileDataList.Count; i++)
+                        {
+                            writer.Write($"{_fileDataList[i]}\n");
+                        }
+
+                        var fieldValue = GetFieldValue(serializedFieldParent.FindPropertyRelative("_fieldValue"), fieldType);
+                        _fileDataList.Add($"{fieldName}:{fieldType}={fieldValue}");
+                        writer.Write($"{fieldName}:{fieldType}={fieldValue}\n");
+                    }
+                }
+
+                BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
+            }
             #endregion
+
+            private string GetFieldValue(SerializedProperty serializedField, string fieldType)
+            {
+                if (serializedField.isArray)
+                {
+                    if (fieldType == BaseEditorFieldOnlyInspector.BOOL_ARRAY)
+                    {
+                        List<string> boolValues = new List<string>();
+
+                        for (int i = 0; i < serializedField.arraySize; i++)
+                        {
+                            boolValues.Add(serializedField.GetArrayElementAtIndex(i).boolValue.ToString());
+                        }
+
+                        return $"[{string.Join("|", boolValues)}]";
+                    }
+                    else if (fieldType == BaseEditorFieldOnlyInspector.INT_ARRAY)
+                    {
+                        List<string> intValues = new List<string>();
+
+                        for (int i = 0; i < serializedField.arraySize; i++)
+                        {
+                            intValues.Add(serializedField.GetArrayElementAtIndex(i).intValue.ToString());
+                        }
+
+                        return $"[{string.Join("|", intValues)}]";
+                    }
+                    else if (fieldType == BaseEditorFieldOnlyInspector.FLOAT_ARRAY)
+                    {
+                        List<string> floatValues = new List<string>();
+
+                        for (int i = 0; i < serializedField.arraySize; i++)
+                        {
+                            floatValues.Add(serializedField.GetArrayElementAtIndex(i).floatValue.ToString());
+                        }
+
+                        return $"[{string.Join("|", floatValues)}]";
+                    }
+                    else if (fieldType == BaseEditorFieldOnlyInspector.STRING_ARRAY)
+                    {
+                        List<string> stringValues = new List<string>();
+
+                        for (int i = 0; i < serializedField.arraySize; i++)
+                        {
+                            string value = serializedField.GetArrayElementAtIndex(i).stringValue.Replace("|", BaseEditorFieldOnlyInspector.VERTICAL_LINE_REPLACEMENT).
+                                Replace("[", BaseEditorFieldOnlyInspector.OPEN_BRACKET_REPLACEMENT).Replace("]", BaseEditorFieldOnlyInspector.CLOSED_BRACKET_REPLACEMENT);
+
+                            stringValues.Add(value);
+                        }
+
+                        return $"[{string.Join("|", stringValues)}]";
+                    }
+                    else if (fieldType == BaseEditorFieldOnlyInspector.VECTOR2_ARRAY)
+                    {
+                        List<string> vector2Values = new List<string>();
+
+                        for (int i = 0; i < serializedField.arraySize; i++)
+                        {
+                            vector2Values.Add(serializedField.GetArrayElementAtIndex(i).vector2Value.ToString());
+                        }
+
+                        return $"[{string.Join("|", vector2Values)}]";
+                    }
+                    else if (fieldType == BaseEditorFieldOnlyInspector.VECTOR2INT_ARRAY)
+                    {
+                        List<string> vector2IntValues = new List<string>();
+
+                        for (int i = 0; i < serializedField.arraySize; i++)
+                        {
+                            vector2IntValues.Add(serializedField.GetArrayElementAtIndex(i).vector2IntValue.ToString());
+                        }
+
+                        return $"[{string.Join("|", vector2IntValues)}]";
+                    }
+                    else if (fieldType == BaseEditorFieldOnlyInspector.VECTOR3_ARRAY)
+                    {
+                        List<string> vector3Values = new List<string>();
+
+                        for (int i = 0; i < serializedField.arraySize; i++)
+                        {
+                            vector3Values.Add(serializedField.GetArrayElementAtIndex(i).vector3Value.ToString());
+                        }
+
+                        return $"[{string.Join("|", vector3Values)}]";
+                    }
+                    else if (fieldType == BaseEditorFieldOnlyInspector.VECTOR3INT_ARRAY)
+                    {
+                        List<string> vector3IntValues = new List<string>();
+
+                        for (int i = 0; i < serializedField.arraySize; i++)
+                        {
+                            vector3IntValues.Add(serializedField.GetArrayElementAtIndex(i).vector3IntValue.ToString());
+                        }
+
+                        return $"[{string.Join("|", vector3IntValues)}]";
+                    }
+                    else if (fieldType == SerializedPropertyType.String.ToString())
+                    {
+                        return serializedField.stringValue.Replace("|", BaseEditorFieldOnlyInspector.VERTICAL_LINE_REPLACEMENT).
+                                Replace("[", BaseEditorFieldOnlyInspector.OPEN_BRACKET_REPLACEMENT).Replace("]", BaseEditorFieldOnlyInspector.CLOSED_BRACKET_REPLACEMENT);
+                    }
+                }
+                else
+                {
+                    switch (serializedField.propertyType)
+                    {
+                        case SerializedPropertyType.Integer:
+                            return serializedField.intValue.ToString();
+
+                        case SerializedPropertyType.Boolean:
+                            return serializedField.boolValue.ToString();
+
+                        case SerializedPropertyType.Float:
+                            return serializedField.floatValue.ToString();
+
+                        case SerializedPropertyType.Vector2:
+                            return serializedField.vector2Value.ToString();
+
+                        case SerializedPropertyType.Vector3:
+                            return serializedField.vector3Value.ToString();
+
+                        case SerializedPropertyType.Vector2Int:
+                            return serializedField.vector2IntValue.ToString();
+
+                        case SerializedPropertyType.Vector3Int:
+                            return serializedField.vector3IntValue.ToString();
+
+                    }
+                }
+
+                return "Default";
+            }
 
             private void Init(SerializedProperty property)
             {
@@ -514,7 +887,7 @@ namespace HephaestusForge
                     }
                 }
 
-                _requestedProperties.Add(_propertyPath, new List<Tuple<string, SerializedProperty>>());
+                _requestedProperties.Add(_propertyPath, new List<EditorFieldDrawingCriteria>());
 
                 Init();
             }
@@ -546,21 +919,19 @@ namespace HephaestusForge
                 {
                     if (property.isExpanded)
                     {
-                        if (!EditorApplication.isPlaying)
+                        for (int i = 0; i < _requestedProperties[_propertyPath].Count; i++)
                         {
-                            for (int i = 0; i < _requestedProperties[_propertyPath].Count; i++)
+                            if (_requestedProperties[_propertyPath][i].VisibleAtEditorEditTime && !EditorApplication.isPlaying ||
+                                    _requestedProperties[_propertyPath][i].VisibleAtEditorPlayMode && EditorApplication.isPlaying)
                             {
-                                if (_requestedProperties[_propertyPath][i].Item2.isArray)
+                                if (_requestedProperties[_propertyPath][i].SerializedProperty.isArray && _requestedProperties[_propertyPath][i].SerializedProperty.isExpanded)
                                 {
-                                    if (_requestedProperties[_propertyPath][i].Item2.isExpanded)
-                                    {
-                                        propertyHeight += (_requestedProperties[_propertyPath][i].Item2.arraySize + 1) * (EditorGUIUtility.singleLineHeight + _heightOffset);
-                                    }
+                                    propertyHeight += (_requestedProperties[_propertyPath][i].SerializedProperty.arraySize + 1) *
+                                        (EditorGUIUtility.singleLineHeight + _heightOffset);
                                 }
 
                                 propertyHeight += EditorGUIUtility.singleLineHeight + _heightOffset;
                             }
-
                         }
 
                         propertyHeight += EditorGUIUtility.singleLineHeight + _heightOffset;
@@ -608,7 +979,35 @@ namespace HephaestusForge
 
                     if (EditorGUI.EndChangeCheck())
                     {
-                        property.serializedObject.ApplyModifiedProperties();
+                        if (_requestedProperties[_propertyPath].Any(rp => rp.EnableFieldAvailabilityForEditorPlayMode))
+                        {
+                            for (int i = 0; i < _requestedProperties.Count; i++)
+                            {
+                                if (_requestedProperties[_propertyPath][i].EnableFieldAvailabilityForEditorPlayMode)
+                                {
+                                    string fieldName = _requestedProperties[_propertyPath][i].FieldName;
+
+                                    string field = _fileDataList.Find(s => s.Contains($"{fieldName}:"));
+                                    int index = _fileDataList.IndexOf(field);
+
+                                    var fieldValue = GetFieldValue(_requestedProperties[_propertyPath][i].SerializedProperty, field.Split('=')[0].Split(':')[1]);
+                                    _fileDataList[index] = $"{field.Split('=')[0]}={fieldValue}";
+                                }
+                            }
+
+                            using (var stream = File.Open(_filePath, FileMode.Create))
+                            {
+                                using (var writer = new StreamWriter(stream))
+                                {
+                                    for (int i = 0; i < _fileDataList.Count; i++)
+                                    {
+                                        writer.Write($"{_fileDataList[i]}\n");
+                                    }
+                                }
+
+                            }
+                        }
+                            property.serializedObject.ApplyModifiedProperties();
                     }
 
                     if (property.isExpanded)
@@ -623,21 +1022,28 @@ namespace HephaestusForge
 
                             for (int i = 0; i < _requestedProperties[_propertyPath].Count; i++)
                             {
-                                if (_requestedProperties[_propertyPath][i].Item2.isArray)
+                                if (_requestedProperties[_propertyPath][i].VisibleAtEditorEditTime && !EditorApplication.isPlaying ||
+                                   _requestedProperties[_propertyPath][i].VisibleAtEditorPlayMode && EditorApplication.isPlaying)
                                 {
-                                    EditorGUI.PropertyField(position, _requestedProperties[_propertyPath][i].Item2, new GUIContent(_requestedProperties[_propertyPath][i].Item1), true);
-
-                                    if (_requestedProperties[_propertyPath][i].Item2.isExpanded)
+                                    if (_requestedProperties[_propertyPath][i].SerializedProperty.isArray)
                                     {
-                                        position.y += (_requestedProperties[_propertyPath][i].Item2.arraySize + 1) * (EditorGUIUtility.singleLineHeight + _heightOffset);
-                                    }
-                                }
-                                else
-                                {
-                                    EditorGUI.PropertyField(position, _requestedProperties[_propertyPath][i].Item2, new GUIContent(_requestedProperties[_propertyPath][i].Item1), false);
-                                }
+                                        EditorGUI.PropertyField(position, _requestedProperties[_propertyPath][i].SerializedProperty,
+                                            new GUIContent(_requestedProperties[_propertyPath][i].FieldName), true);
 
-                                position.y += EditorGUIUtility.singleLineHeight + _heightOffset;
+                                        if (_requestedProperties[_propertyPath][i].SerializedProperty.isExpanded)
+                                        {
+                                            position.y += (_requestedProperties[_propertyPath][i].SerializedProperty.arraySize + 1) * 
+                                                (EditorGUIUtility.singleLineHeight + _heightOffset);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        EditorGUI.PropertyField(position, _requestedProperties[_propertyPath][i].SerializedProperty, 
+                                            new GUIContent(_requestedProperties[_propertyPath][i].FieldName), false);
+                                    }
+
+                                    position.y += EditorGUIUtility.singleLineHeight + _heightOffset;
+                                }
                             }
 
                             if (EditorGUI.EndChangeCheck())
@@ -669,6 +1075,19 @@ namespace HephaestusForge
                             property.serializedObject.ApplyModifiedProperties();
                         }
                     }
+
+                    if (_requestedProperties[_propertyPath].Any(rp => rp.EnableFieldAvailabilityForEditorPlayMode))
+                    {
+                        if (GUILayout.Button("Open file for fields"))
+                        {
+                            System.Diagnostics.Process.Start(_filePath);
+                        }
+
+                        if (GUILayout.Button("Get editor fields file guid"))
+                        {
+                            Debug.Log(_guid);
+                        }
+                    }
                 }
             }
 
@@ -676,8 +1095,10 @@ namespace HephaestusForge
 			{
 				Selection.selectionChanged -= OnDisable;
                 _initialized.Clear();
+                _fieldNames.Clear();
+                _fileDataList?.Clear();
 
-				if (BaseEditorFieldOnlyInspector._EditorFieldsDataController != null)
+                if (BaseEditorFieldOnlyInspector._EditorFieldsDataController != null)
 				{
 					BaseEditorFieldOnlyInspector._EditorFieldsDataController.ApplyModifiedProperties();
 					AssetDatabase.SaveAssets();
