@@ -29,8 +29,8 @@ public class DemoTest : MonoBehaviour
 
         var getValueOnEditorRuntimeMethod = editorFieldsDataControllerType.GetMethod("GetValueInEditorPlayMode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
-        _stringEditorOnly = (string)getValueOnEditorRuntimeMethod.Invoke(editorFieldsDataController, new object[] { "9120c08a75adefb4ca2a9b31fdff8e75", "EditorString" });
-        _vector2EditorOnly = (Vector2)getValueOnEditorRuntimeMethod.Invoke(editorFieldsDataController, new object[] { "9120c08a75adefb4ca2a9b31fdff8e75", "EditorVector2" });
+        _stringEditorOnly = (string)getValueOnEditorRuntimeMethod.Invoke(editorFieldsDataController, new object[] { "1548a1c5171ffde43a8bdfecc72ce1ff", "EditorString" });
+        _vector2EditorOnly = (Vector2)getValueOnEditorRuntimeMethod.Invoke(editorFieldsDataController, new object[] { "1548a1c5171ffde43a8bdfecc72ce1ff", "EditorVector2" });
 #endif
     }
 }
