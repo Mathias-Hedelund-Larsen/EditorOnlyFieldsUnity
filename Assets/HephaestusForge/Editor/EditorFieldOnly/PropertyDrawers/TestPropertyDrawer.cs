@@ -10,7 +10,7 @@ public class TestPropertyDrawer : BaseEditorFieldOnlyPropertyDrawer
         RequestBoolField("EditorTestBool");
     }
 
-    protected override int GetPropertyHeight(SerializedProperty[] property)
+    protected override int GetPropertyHeight(SerializedProperty[] children)
     {
         return 0;
     }

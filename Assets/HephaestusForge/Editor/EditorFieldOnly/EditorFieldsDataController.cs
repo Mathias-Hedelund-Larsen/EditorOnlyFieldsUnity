@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -100,13 +101,14 @@ namespace HephaestusForge
                 }
             }
 
-            private object GetValueOnEditorRuntime(string fileGuid, string fieldName)
+            private object GetValueInEditorPlayMode(string fileGuid, string fieldName)
             {
                 if (!_fields.ContainsKey(fileGuid))
                 {
                     string[] fileData = null;
+                    var path = $"{Application.persistentDataPath}/{BaseEditorFieldOnlyInspector.FIELDS_DIRECTORY}/{fileGuid}.txt";
 
-                    using(var reader =new StreamReader($"{Application.persistentDataPath}/{BaseEditorFieldOnlyInspector.FIELDS_DIRECTORY}/{fileGuid}.txt"))
+                    using (var reader = new StreamReader(path))
                     {
                         fileData = reader.ReadToEnd().Split('\n');
                     }
@@ -119,21 +121,39 @@ namespace HephaestusForge
                         {
                             string nameOfField = fileData[i].Split(':')[0];
                             string fieldType = fileData[i].Split(':')[1].Split('=')[0];
+                            var fieldValue = fileData[i].Split('=')[1];
 
                             if (fieldType == SerializedPropertyType.Boolean.ToString())
                             {
-                                _fields[fileGuid].Add(nameOfField, bool.Parse(fileData[i].Split('=')[1]));
-                            }
-                            else if (fieldType == BaseEditorFieldOnlyInspector.BOOLEAN_ARRAY)
+                                _fields[fileGuid].Add(nameOfField, ParseBool(fieldValue, path, nameOfField));                                
+                            }                            
+                            else if(fieldType == SerializedPropertyType.Integer.ToString())
                             {
-                                GetSubStringBetweenChars(fileData[i], '[', ']', out string full, out string inside);
+                                _fields[fileGuid].Add(nameOfField, ParseInt(fieldValue, path, nameOfField));
+                            }
+                            else if(fieldType == SerializedPropertyType.Float.ToString())
+                            {
+                                _fields[fileGuid].Add(nameOfField, ParseFloat(fieldValue, path, nameOfField));
+                            }
+                            else if (fieldType == SerializedPropertyType.String.ToString())
+                            {
+                                _fields[fileGuid].Add(nameOfField, fieldValue.Replace(BaseEditorFieldOnlyInspector.OPEN_BRACKET_REPLACEMENT, "[").
+                                    Replace(BaseEditorFieldOnlyInspector.VERTICAL_LINE_REPLACEMENT, "|").Replace(BaseEditorFieldOnlyInspector.CLOSED_BRACKET_REPLACEMENT, "]"));
+                            }
+                            else if(fieldType == SerializedPropertyType.Vector2.ToString())
+                            {
+                                _fields[fileGuid].Add(nameOfField, ParseVector2(fieldValue, path, nameOfField));
+                            }
+                            else if (fieldType == BaseEditorFieldOnlyInspector.BOOL_ARRAY)
+                            {
+                                GetSubStringBetweenChars(fieldValue, '[', ']', out string full, out string inside);
                                 var valuesOfArray = inside.Split('|');
 
                                 bool[] bools = new bool[valuesOfArray.Length];
 
                                 for (int t = 0; t < bools.Length; t++)
                                 {
-                                    bools[t] = bool.Parse(valuesOfArray[t]);
+                                    bools[t] = ParseBool(valuesOfArray[t], path, nameOfField);
                                 }
 
                                 _fields[fileGuid].Add(nameOfField, bools);
@@ -143,6 +163,57 @@ namespace HephaestusForge
                 }
 
                 return _fields[fileGuid][fieldName];
+            }
+
+            private Vector2 ParseVector2(string vector2Value, string path, string fieldName)
+            {
+                GetSubStringBetweenChars(vector2Value, '(', ')', out string full, out string inside);
+                var values = inside.Split(',');
+
+                if(float.TryParse(values[0], out float x) && float.TryParse(values[1], out float y))
+                {
+                    return new Vector2(x, y);
+                }
+                else
+                {
+                    throw new FormatException($"Couldnt parse: {vector2Value} to vector2, something went wrong look into the file: {path} at {fieldName}.");
+                }
+            }
+
+            private float ParseFloat(string floatValue, string path, string fieldName)
+            {
+                if (float.TryParse(floatValue, out float fieldValue))
+                {
+                    return fieldValue;
+                }
+                else
+                {
+                    throw new FormatException($"Couldnt parse: {floatValue} to float, something went wrong look into the file: {path} at {fieldName}.");
+                }
+            }
+
+            private int ParseInt(string intValue, string path, string fieldName)
+            {
+                if (int.TryParse(intValue, out int fieldValue))
+                {
+                    return fieldValue;
+                }
+                else
+                {
+                    throw new FormatException($"Couldnt parse: {intValue} to int, something went wrong look into the file: {path} at {fieldName}.");
+                }
+            }
+
+            private bool ParseBool(string boolValue, string path, string fieldName)
+            {
+                if (bool.TryParse(boolValue, out bool fieldValue))
+                {
+                    return fieldValue;
+                }
+                else
+                {
+                    throw new FormatException($"Couldnt parse: {boolValue} to bool, something went wrong look into the file: {path} at {fieldName}.");
+                }
             }
 
             private void GetSubStringBetweenChars(string origin, char start, char end, out string fullMatch, out string insideEncapsulation)

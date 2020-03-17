@@ -17,18 +17,6 @@ MonoBehaviour:
     _fieldName: EditorBoolField
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
     _objectID: 1703117563
-    _guidPath: baa07cbaf537ae646a208e8b3e208b1b
-    _fieldValue: 1
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: _test.EditorTestBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1703117563
-    _guidPath: 
-    _fieldValue: 1
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: _test.Array.data[0].EditorTestBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1703117563
     _guidPath: 
     _fieldValue: 0
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
@@ -36,37 +24,116 @@ MonoBehaviour:
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
     _objectID: 1703117563
     _guidPath: 
-    _fieldValue: 1
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: _test.Array.data[1].EditorTestBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1703117563
-    _guidPath: 
-    _fieldValue: 1
+    _fieldValue: 0
   _floatFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloatField
+    _fieldName: EditorFloat
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
     _objectID: 1703117563
     _guidPath: 
-    _fieldValue: -0.5
-  _intFields: []
-  _stringFields: []
-  _vector2Fields: []
-  _vector2IntFields: []
-  _vector3Fields: []
-  _vector3IntFields: []
+    _fieldValue: 0.8
+  _intFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorInt
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: 0
+  _stringFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorString
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 9120c08a75adefb4ca2a9b31fdff8e75
+    _fieldValue: '[Hello world!|]'
+  _vector2Fields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorVector2
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 9120c08a75adefb4ca2a9b31fdff8e75
+    _fieldValue: {x: 12.45, y: 0.567}
+  _vector2IntFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorVector2Int
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: {x: 0, y: 0}
+  _vector3Fields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorVector3
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 9120c08a75adefb4ca2a9b31fdff8e75
+    _fieldValue: {x: 4.44, y: 5, z: 1}
+  _vector3IntFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorVector3Int
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: {x: 0, y: 0, z: 0}
   _boolCollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: BoolCollectionInEditor
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
     _objectID: 1703117563
-    _guidPath: baa07cbaf537ae646a208e8b3e208b1b
-    _fieldValue: 0000000101
-  _floatCollectionFields: []
-  _intCollectionFields: []
-  _stringCollectionFields: []
-  _vector2CollectionFields: []
-  _vector2IntCollectionFields: []
-  _vector3CollectionFields: []
-  _vector3IntCollectionFields: []
+    _guidPath: 
+    _fieldValue: 
+  _floatCollectionFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorFloatCollection
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: []
+  _intCollectionFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorIntCollection
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: 
+  _stringCollectionFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorStringCollection
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: []
+  _vector2CollectionFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorVector2Collection
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 9120c08a75adefb4ca2a9b31fdff8e75
+    _fieldValue:
+    - {x: 1.3, y: 2.5553}
+    - {x: 1102.4, y: 112.5}
+  _vector2IntCollectionFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorVector2IntCollection
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: []
+  _vector3CollectionFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorVector3Collection
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue: []
+  _vector3IntCollectionFields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EdtorVector3IntCollection
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1703117563
+    _guidPath: 
+    _fieldValue:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 5, y: 3, z: 0}
+    - {x: 0, y: 0, z: 55}
+    - {x: 0, y: 0, z: 0}

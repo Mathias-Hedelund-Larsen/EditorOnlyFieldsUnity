@@ -8,37 +8,29 @@ using UnityEditor;
 
 public class DemoTest : MonoBehaviour
 {
-    [SerializeField]
-    private Test[] _test;
-
-    [SerializeField]
-    private Test _please;
-
 
 #if UNITY_EDITOR
 
     [NonSerialized]
-    private bool _editorBoolField;
+    private string _stringEditorOnly;
 
     [NonSerialized]
-    private bool[] _bools;
+    private Vector2 _vector2EditorOnly;
 
 #endif
-      
+
 
     private void Awake()
     {
 #if UNITY_EDITOR
         Type editorFieldsDataControllerType = Type.GetType("HephaestusForge.EditorFieldOnly.EditorFieldsDataController, Assembly-CSharp-Editor");
-        var editorFieldsDataController = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:EditorFieldsDataController")[0]), 
+        var editorFieldsDataController = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:EditorFieldsDataController")[0]),
             editorFieldsDataControllerType);
 
-        var getValueOnEditorRuntimeMethod = editorFieldsDataControllerType.GetMethod("GetValueOnEditorRuntime", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var getValueOnEditorRuntimeMethod = editorFieldsDataControllerType.GetMethod("GetValueInEditorPlayMode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
-        _editorBoolField = (bool)getValueOnEditorRuntimeMethod.Invoke(editorFieldsDataController, new object[] { "baa07cbaf537ae646a208e8b3e208b1b", "EditorBoolField" });
-        _bools = (bool[])getValueOnEditorRuntimeMethod.Invoke(editorFieldsDataController, new object[] { "baa07cbaf537ae646a208e8b3e208b1b", "BoolCollectionInEditor" });
+        _stringEditorOnly = (string)getValueOnEditorRuntimeMethod.Invoke(editorFieldsDataController, new object[] { "9120c08a75adefb4ca2a9b31fdff8e75", "EditorString" });
+        _vector2EditorOnly = (Vector2)getValueOnEditorRuntimeMethod.Invoke(editorFieldsDataController, new object[] { "9120c08a75adefb4ca2a9b31fdff8e75", "EditorVector2" });
 #endif
-
-        Debug.Log(_editorBoolField);
     }
 }
