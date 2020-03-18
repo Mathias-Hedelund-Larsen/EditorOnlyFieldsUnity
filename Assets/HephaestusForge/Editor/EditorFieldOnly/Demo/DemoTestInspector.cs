@@ -4,10 +4,8 @@ using UnityEditor;
 [CustomEditor(typeof(DemoTest))]
 public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
 {
-    protected override void OnEnable()
+    protected override void Enabled(out bool didRequestEditorField)
     {
-        base.OnEnable();
-
         RequestBoolField("SomeBool", enableFieldAvailabilityForEditorPlayMode: true);
         RequestBoolField("EditorBoolField", visibleAtEditorPlayMode: true, enableFieldAvailabilityForEditorPlayMode: true);
         RequestBoolCollectionField("BoolCollectionInEditor", enableFieldAvailabilityForEditorPlayMode: true);
@@ -24,8 +22,8 @@ public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
         RequestVector3Field("EditorVector3", enableFieldAvailabilityForEditorPlayMode: true);
         RequestVector3CollectionField("EditorVector3Collection", enableFieldAvailabilityForEditorPlayMode: true);
         RequestVector3IntField("EditorVector3Int", enableFieldAvailabilityForEditorPlayMode: true);
-        RequestVector3IntCollectionField("EdtorVector3IntCollection", enableFieldAvailabilityForEditorPlayMode: true);        
+        RequestVector3IntCollectionField("EdtorVector3IntCollection", enableFieldAvailabilityForEditorPlayMode: true);
 
-        AssetDatabase.SaveAssets();
+        didRequestEditorField = true;
     }
 }

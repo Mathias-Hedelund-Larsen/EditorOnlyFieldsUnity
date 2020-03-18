@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HephaestusForge.EditorFieldOnly
 {
@@ -30,6 +31,7 @@ namespace HephaestusForge.EditorFieldOnly
         private int _objectID;
         private string _filePath;
         private string _sceneGuid;
+        private bool _sceneWasSaved;
         private List<string> _fileDataList;
         private List<string> _fieldNames = new List<string>();
 
@@ -37,7 +39,7 @@ namespace HephaestusForge.EditorFieldOnly
         protected bool _shouldDrawBaseInspector = true;
         protected List<EditorFieldDrawingCriteria> _requestedProperties = new List<EditorFieldDrawingCriteria>();
 
-        protected virtual void OnEnable()
+        private void OnEnable()
         {
             if (target is MonoBehaviour)
             {
@@ -77,9 +79,11 @@ namespace HephaestusForge.EditorFieldOnly
                 _sceneGuid = AssetDatabase.AssetPathToGUID((target as Component).gameObject.scene.path);
                 _objectID = localIdProp.intValue;
 
-                if (_objectID == 0)
+                if (_objectID == 0 && !_sceneWasSaved)
                 {
-                    EditorSceneManager.SaveScene((target as Component).gameObject.scene);
+                    EditorSceneManager.sceneSaved += SetObjectID;
+
+                    _sceneWasSaved = EditorSceneManager.SaveScene((target as Component).gameObject.scene);
                 }
             }
 
@@ -90,7 +94,28 @@ namespace HephaestusForge.EditorFieldOnly
             }
 
             _fieldNames.Add("FileID");
+
+            Enabled(out bool didRequestEditorField);
+
+            if (didRequestEditorField)
+            {
+                AssetDatabase.SaveAssets();
+            }
         }
+
+        private void SetObjectID(Scene scene)
+        {
+            SerializedObject serializedObject = new SerializedObject(target);
+            PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
+            inspectorModeInfo.SetValue(serializedObject, InspectorMode.Debug, null);
+
+            SerializedProperty localIdProp = serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
+
+            _sceneGuid = AssetDatabase.AssetPathToGUID((target as Component).gameObject.scene.path);
+            _objectID = localIdProp.intValue;
+        }
+
+        protected abstract void Enabled(out bool didRequestEditorField);
 
         #region FieldRequestsAndSetup
         protected SerializedProperty RequestBoolField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
@@ -680,6 +705,7 @@ namespace HephaestusForge.EditorFieldOnly
             targetPropertyHolder.FindPropertyRelative("_objectID").intValue = _objectID;
             targetPropertyHolder.FindPropertyRelative("_usedInScript").objectReferenceValue = _script;
             targetPropertyHolder.FindPropertyRelative("_fieldID").stringValue = fieldID;
+            targetPropertyHolder.FindPropertyRelative("_guidPath").stringValue = "";
 
             var allFieldsArray = _EditorFieldsDataController.FindProperty("_allFields");
 
@@ -690,6 +716,7 @@ namespace HephaestusForge.EditorFieldOnly
             allFieldsAtNewestIndex.FindPropertyRelative("_objectID").intValue = _objectID;
             allFieldsAtNewestIndex.FindPropertyRelative("_usedInScript").objectReferenceValue = _script;
             allFieldsAtNewestIndex.FindPropertyRelative("_fieldID").stringValue = fieldID;
+            allFieldsAtNewestIndex.FindPropertyRelative("_guidPath").stringValue = "";
 
             return targetPropertyHolder;
         }
@@ -729,6 +756,10 @@ namespace HephaestusForge.EditorFieldOnly
             }
 
             guid.stringValue = _guid;
+
+            _EditorFieldsDataController.FindProperty("_allFields").FindInArray(s => s.FindPropertyRelative("_sceneGuid").stringValue == _sceneGuid &&
+                s.FindPropertyRelative("_objectID").intValue == _objectID && s.FindPropertyRelative("_fieldName").stringValue == fieldName &&
+                s.FindPropertyRelative("_usedInScript").objectReferenceValue == _script, out int index).FindPropertyRelative("_guidPath").stringValue = _guid;
 
             _filePath = $"{Application.persistentDataPath}/{FIELDS_DIRECTORY}/{_guid}.txt";
 
@@ -776,6 +807,7 @@ namespace HephaestusForge.EditorFieldOnly
 
             _EditorFieldsDataController.ApplyModifiedProperties();
         }
+        
         #endregion
 
         public override void OnInspectorGUI()

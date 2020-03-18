@@ -57,54 +57,61 @@ namespace HephaestusForge
                     openScenes.Add(EditorSceneManager.GetSceneAt(sceneIndex));
                 }
 
-                CheckForRemove(boolFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                bool removedSomething = false;
+
+                CheckForRemove(boolFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(boolFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(floatFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(floatFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(floatFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(intFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(intFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(intFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(stringFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(stringFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(stringFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(vector2FieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(vector2FieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(vector2FieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(vector2IntFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(vector2IntFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(vector2IntFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(vector3FieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(vector3FieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(vector3FieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(vector3IntFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(vector3IntFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(vector3IntFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(boolCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(boolCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(boolCollectionFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(floatCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(floatCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(floatCollectionFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(intCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(intCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(intCollectionFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(stringCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(stringCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(stringCollectionFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(vector2CollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(vector2CollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(vector2CollectionFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(vector2IntCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(vector2IntCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(vector2IntCollectionFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(vector3CollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(vector3CollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(vector3CollectionFieldsArray, openScenes, inspectorModeInfo);
 
-                CheckForRemove(vector3IntCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo);
+                CheckForRemove(vector3IntCollectionFieldsArray, openScenes, indexesToClear, inspectorModeInfo, ref removedSomething);
                 Draw(vector3IntCollectionFieldsArray, openScenes, inspectorModeInfo);
 
+                if (removedSomething)
+                {
+                    _serializedTarget.ApplyModifiedProperties();
+                    AssetDatabase.SaveAssets();
+                }
 
                 if (GUILayout.Button("Open folder for available fields"))
                 {
@@ -119,7 +126,7 @@ namespace HephaestusForge
                 }
             }
 
-            private void CheckForRemove(SerializedProperty fieldsArray, List<Scene> openScenes, List<int> indexesToClear, PropertyInfo inspectorModeInfo)
+            private void CheckForRemove(SerializedProperty fieldsArray, List<Scene> openScenes, List<int> indexesToClear, PropertyInfo inspectorModeInfo, ref bool removedSomething)
             {
                 for (int arrayIndex = fieldsArray.arraySize - 1; arrayIndex >= 0; arrayIndex--)
                 {
@@ -184,6 +191,7 @@ namespace HephaestusForge
 
                 List<int> indexesInAllFieldsToClear = new List<int>();
                 var allFieldsProperty = _serializedTarget.FindProperty("_allFields");
+
                 for (int i = 0; i < indexesToClear.Count; i++)
                 {
                     if(allFieldsProperty.FindInArray(s => s.FindPropertyRelative("_fieldID").stringValue ==
@@ -192,6 +200,7 @@ namespace HephaestusForge
                         indexesInAllFieldsToClear.Add(indexToDelete);
                     }
 
+                    removedSomething = true;
                     fieldsArray.DeleteArrayElementAtIndex(indexesToClear[i]);
                 }
 
@@ -202,9 +211,7 @@ namespace HephaestusForge
                     allFieldsProperty.DeleteArrayElementAtIndex(indexesInAllFieldsToClear[i]);
                 }
 
-                indexesToClear.Clear();
-                _serializedTarget.ApplyModifiedProperties();
-                AssetDatabase.SaveAssets();
+                indexesToClear.Clear();                
             }
 
             private void Draw(SerializedProperty fieldsArray, List<Scene> openScenes, PropertyInfo inspectorModeInfo)

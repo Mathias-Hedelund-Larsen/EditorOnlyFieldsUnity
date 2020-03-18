@@ -601,6 +601,7 @@ namespace HephaestusForge.EditorFieldOnly
                 return null;
             }
         }
+
         private SerializedProperty IncreaseArray(SerializedProperty array, string nameOfField)
         {
             array.arraySize++;
@@ -613,6 +614,7 @@ namespace HephaestusForge.EditorFieldOnly
             targetPropertyHolder.FindPropertyRelative("_objectID").intValue = _objectID;
             targetPropertyHolder.FindPropertyRelative("_usedInScript").objectReferenceValue = _script;
             targetPropertyHolder.FindPropertyRelative("_fieldID").stringValue = fieldID;
+            targetPropertyHolder.FindPropertyRelative("_guidPath").stringValue = "";
 
             var allFieldsArray = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_allFields");
 
@@ -623,6 +625,7 @@ namespace HephaestusForge.EditorFieldOnly
             allFieldsAtNewestIndex.FindPropertyRelative("_objectID").intValue = _objectID;
             allFieldsAtNewestIndex.FindPropertyRelative("_usedInScript").objectReferenceValue = _script;
             allFieldsAtNewestIndex.FindPropertyRelative("_fieldID").stringValue = fieldID;
+            allFieldsAtNewestIndex.FindPropertyRelative("_guidPath").stringValue = "";
 
             return targetPropertyHolder;
         }
@@ -636,7 +639,8 @@ namespace HephaestusForge.EditorFieldOnly
                 var objectID = array.GetArrayElementAtIndex(i).FindPropertyRelative("_objectID");
                 var script = array.GetArrayElementAtIndex(i).FindPropertyRelative("_usedInScript");
 
-                if (fieldName.stringValue == nameOfField && sceneGuid.stringValue == _sceneGuid && objectID.intValue == _objectID && script.objectReferenceValue == _script)
+                if (fieldName.stringValue == $"{_propertyPath}.{nameOfField}" && sceneGuid.stringValue == _sceneGuid && 
+                    objectID.intValue == _objectID && script.objectReferenceValue == _script)
                 {
                     return array.GetArrayElementAtIndex(i);
                 }
@@ -662,6 +666,10 @@ namespace HephaestusForge.EditorFieldOnly
             }
 
             guid.stringValue = _guid;
+
+            BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_allFields").FindInArray(s => s.FindPropertyRelative("_sceneGuid").stringValue == _sceneGuid &&
+                s.FindPropertyRelative("_objectID").intValue == _objectID && s.FindPropertyRelative("_fieldName").stringValue == $"{_propertyPath}.{fieldName}" &&
+                s.FindPropertyRelative("_usedInScript").objectReferenceValue == _script, out int index).FindPropertyRelative("_guidPath").stringValue = _guid;
 
             _filePath = $"{Application.persistentDataPath}/{BaseEditorFieldOnlyInspector.FIELDS_DIRECTORY}/{_guid}.txt";
 
@@ -896,6 +904,18 @@ namespace HephaestusForge.EditorFieldOnly
 
                 if (_objectID == 0)
                 {
+                    EditorSceneManager.sceneSaved += (scene) =>
+                    {
+                        SerializedObject d_serializedObject = new SerializedObject(target);
+                        PropertyInfo d_inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
+                        d_inspectorModeInfo.SetValue(d_serializedObject, InspectorMode.Debug, null);
+
+                        SerializedProperty d_localIdProp = d_serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
+
+                        _sceneGuid = AssetDatabase.AssetPathToGUID((target as Component).gameObject.scene.path);
+                        _objectID = d_localIdProp.intValue;
+                    };
+
                     EditorSceneManager.SaveScene((target as Component).gameObject.scene);
                 }
             }
