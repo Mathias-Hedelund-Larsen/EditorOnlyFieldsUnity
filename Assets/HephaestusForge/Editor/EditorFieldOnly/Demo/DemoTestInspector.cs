@@ -8,6 +8,7 @@ public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
     {
         base.OnEnable();
 
+        RequestBoolField("SomeBool", enableFieldAvailabilityForEditorPlayMode: true);
         RequestBoolField("EditorBoolField", visibleAtEditorPlayMode: true, enableFieldAvailabilityForEditorPlayMode: true);
         RequestBoolCollectionField("BoolCollectionInEditor", enableFieldAvailabilityForEditorPlayMode: true);
         RequestFloatField("EditorFloat", enableFieldAvailabilityForEditorPlayMode: true);
@@ -23,7 +24,7 @@ public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
         RequestVector3Field("EditorVector3", enableFieldAvailabilityForEditorPlayMode: true);
         RequestVector3CollectionField("EditorVector3Collection", enableFieldAvailabilityForEditorPlayMode: true);
         RequestVector3IntField("EditorVector3Int", enableFieldAvailabilityForEditorPlayMode: true);
-        RequestVector3IntCollectionField("EdtorVector3IntCollection", enableFieldAvailabilityForEditorPlayMode: true);
+        RequestVector3IntCollectionField("EdtorVector3IntCollection", enableFieldAvailabilityForEditorPlayMode: true);        
 
         AssetDatabase.SaveAssets();
     }

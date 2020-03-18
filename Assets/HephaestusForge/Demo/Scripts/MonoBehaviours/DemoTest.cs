@@ -8,6 +8,11 @@ using UnityEditor;
 
 public class DemoTest : MonoBehaviour
 {
+    //[SerializeField]
+    //private Test _t;
+
+    [SerializeField]
+    private Test[] _ts;
 
 #if UNITY_EDITOR
 

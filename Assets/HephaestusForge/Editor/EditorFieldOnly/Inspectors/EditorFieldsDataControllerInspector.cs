@@ -182,9 +182,24 @@ namespace HephaestusForge
                     }
                 }
 
+                List<int> indexesInAllFieldsToClear = new List<int>();
+                var allFieldsProperty = _serializedTarget.FindProperty("_allFields");
                 for (int i = 0; i < indexesToClear.Count; i++)
                 {
+                    if(allFieldsProperty.FindInArray(s => s.FindPropertyRelative("_fieldID").stringValue ==
+                        fieldsArray.GetArrayElementAtIndex(indexesToClear[i]).FindPropertyRelative("_fieldID").stringValue, out int indexToDelete) != null)
+                    {
+                        indexesInAllFieldsToClear.Add(indexToDelete);
+                    }
+
                     fieldsArray.DeleteArrayElementAtIndex(indexesToClear[i]);
+                }
+
+                indexesInAllFieldsToClear.OrderByDescending(i => i);
+
+                for (int i = 0; i < indexesInAllFieldsToClear.Count; i++)
+                {
+                    allFieldsProperty.DeleteArrayElementAtIndex(indexesInAllFieldsToClear[i]);
                 }
 
                 indexesToClear.Clear();
