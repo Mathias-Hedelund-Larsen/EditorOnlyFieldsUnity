@@ -614,6 +614,7 @@ namespace HephaestusForge.EditorFieldOnly
             targetPropertyHolder.FindPropertyRelative("_objectID").intValue = _objectID;
             targetPropertyHolder.FindPropertyRelative("_usedInScript").objectReferenceValue = _script;
             targetPropertyHolder.FindPropertyRelative("_fieldID").stringValue = fieldID;
+            targetPropertyHolder.FindPropertyRelative("_controller").objectReferenceValue = BaseEditorFieldOnlyInspector._EditorFieldsDataController.targetObject;
             targetPropertyHolder.FindPropertyRelative("_guidPath").stringValue = "";
 
             var allFieldsArray = BaseEditorFieldOnlyInspector._EditorFieldsDataController.FindProperty("_allFields");

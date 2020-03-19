@@ -6,7 +6,7 @@ public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
 {
     protected override void Enabled(out bool didRequestEditorField)
     {
-        RequestBoolField("SomeBool", enableFieldAvailabilityForEditorPlayMode: true);
+        RequestBoolField("SomeBool", enableFieldAvailabilityForEditorPlayMode: true, visibleAtEditorPlayMode: true);
         RequestBoolField("EditorBoolField", visibleAtEditorPlayMode: true, enableFieldAvailabilityForEditorPlayMode: true);
         RequestBoolCollectionField("BoolCollectionInEditor", enableFieldAvailabilityForEditorPlayMode: true);
         RequestFloatField("EditorFloat", enableFieldAvailabilityForEditorPlayMode: true);

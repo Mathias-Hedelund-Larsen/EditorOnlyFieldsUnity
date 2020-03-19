@@ -32,5 +32,8 @@ namespace HephaestusForge.EditorFieldOnly.Internal
         public int ObjectID { get => _objectID; }
         public string GuidPath { get => _guidPath; }
         public string SceneGuid { get => _sceneGuid; }
+        public string FieldName { get => _fieldName; }
+
+        public static implicit operator bool(EditorField source) => source != null;
     }
 }

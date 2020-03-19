@@ -68,10 +68,10 @@ namespace HephaestusForge.EditorFieldOnly
 
         #endregion
 
-        [System.NonSerialized]
+        [NonSerialized]
         private Dictionary<string, Dictionary<string, object>> _fields = new Dictionary<string, Dictionary<string, object>>();
 
-        [UnityEditor.MenuItem("Assets/Create/HephaestusForge/Limited to one/EditorFieldsDataController", false, 0)]
+        [MenuItem("Assets/Create/HephaestusForge/Limited to one/EditorFieldsDataController", false, 0)]
         private static void CreateInstance()
         {
             if (UnityEditor.AssetDatabase.FindAssets("t:EditorFieldsDataController").Length == 0)
@@ -174,7 +174,10 @@ namespace HephaestusForge.EditorFieldOnly
 
                             for (int t = 0; t < bools.Length; t++)
                             {
-                                bools[t] = ParseBool(valuesOfArray[t], path, nameOfField);
+                                if (!string.IsNullOrEmpty(valuesOfArray[t]))
+                                {
+                                    bools[t] = ParseBool(valuesOfArray[t], path, nameOfField);
+                                }
                             }
 
                             _fields[fileGuid].Add(nameOfField, bools);
@@ -188,7 +191,10 @@ namespace HephaestusForge.EditorFieldOnly
 
                             for (int t = 0; t < ints.Length; t++)
                             {
-                                ints[t] = ParseInt(valuesOfArray[t], path, nameOfField);
+                                if (!string.IsNullOrEmpty(valuesOfArray[t]))
+                                {
+                                    ints[t] = ParseInt(valuesOfArray[t], path, nameOfField);
+                                }
                             }
 
                             _fields[fileGuid].Add(nameOfField, ints);
@@ -202,7 +208,10 @@ namespace HephaestusForge.EditorFieldOnly
 
                             for (int t = 0; t < floats.Length; t++)
                             {
-                                floats[t] = ParseFloat(valuesOfArray[t], path, nameOfField);
+                                if (!string.IsNullOrEmpty(valuesOfArray[t]))
+                                {
+                                    floats[t] = ParseFloat(valuesOfArray[t], path, nameOfField);
+                                }
                             }
 
                             _fields[fileGuid].Add(nameOfField, floats);
@@ -216,8 +225,12 @@ namespace HephaestusForge.EditorFieldOnly
 
                             for (int t = 0; t < strings.Length; t++)
                             {
-                                strings[t] = valuesOfArray[t].Replace(BaseEditorFieldOnlyInspector.OPEN_BRACKET_REPLACEMENT, "[").
-                                    Replace(BaseEditorFieldOnlyInspector.VERTICAL_LINE_REPLACEMENT, "|").Replace(BaseEditorFieldOnlyInspector.CLOSED_BRACKET_REPLACEMENT, "]");
+                                if (!string.IsNullOrEmpty(valuesOfArray[t]))
+                                {
+                                    strings[t] = valuesOfArray[t].Replace(BaseEditorFieldOnlyInspector.OPEN_BRACKET_REPLACEMENT, "[").
+                                        Replace(BaseEditorFieldOnlyInspector.VERTICAL_LINE_REPLACEMENT, "|").
+                                        Replace(BaseEditorFieldOnlyInspector.CLOSED_BRACKET_REPLACEMENT, "]");
+                                }
                             }
 
                             _fields[fileGuid].Add(nameOfField, strings);
@@ -231,7 +244,10 @@ namespace HephaestusForge.EditorFieldOnly
 
                             for (int t = 0; t < vectors.Length; t++)
                             {
-                                vectors[t] = ParseVector2(valuesOfArray[t], path, nameOfField);
+                                if (!string.IsNullOrEmpty(valuesOfArray[t]))
+                                {
+                                    vectors[t] = ParseVector2(valuesOfArray[t], path, nameOfField);
+                                }
                             }
 
                             _fields[fileGuid].Add(nameOfField, vectors);
@@ -245,7 +261,10 @@ namespace HephaestusForge.EditorFieldOnly
 
                             for (int t = 0; t < vectors.Length; t++)
                             {
-                                vectors[t] = ParseVector2Int(valuesOfArray[t], path, nameOfField);
+                                if (!string.IsNullOrEmpty(valuesOfArray[t]))
+                                {
+                                    vectors[t] = ParseVector2Int(valuesOfArray[t], path, nameOfField);
+                                }
                             }
 
                             _fields[fileGuid].Add(nameOfField, vectors);
@@ -259,7 +278,10 @@ namespace HephaestusForge.EditorFieldOnly
 
                             for (int t = 0; t < vectors.Length; t++)
                             {
-                                vectors[t] = ParseVector3(valuesOfArray[t], path, nameOfField);
+                                if (!string.IsNullOrEmpty(valuesOfArray[t]))
+                                {
+                                    vectors[t] = ParseVector3(valuesOfArray[t], path, nameOfField);
+                                }
                             }
 
                             _fields[fileGuid].Add(nameOfField, vectors);
@@ -273,7 +295,10 @@ namespace HephaestusForge.EditorFieldOnly
 
                             for (int t = 0; t < vectors.Length; t++)
                             {
-                                vectors[t] = ParseVector3Int(valuesOfArray[t], path, nameOfField);
+                                if (!string.IsNullOrEmpty(valuesOfArray[t]))
+                                {
+                                    vectors[t] = ParseVector3Int(valuesOfArray[t], path, nameOfField);
+                                }
                             }
 
                             _fields[fileGuid].Add(nameOfField, vectors);
@@ -284,6 +309,256 @@ namespace HephaestusForge.EditorFieldOnly
             }
 
             return _fields[fileGuid][fieldName];
+        }
+
+        private Internal.EditorField GetFieldInEditorPlaymode(string fileGuid, string fieldName, Type fieldType)
+        {
+            #region NonCollectionTypeChecks
+            if (fieldType == typeof(bool))
+            {
+                Internal.EditorField returned = null;
+
+                if(returned = Array.Find(_boolFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if(fieldType == typeof(int))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_intFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(string))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_stringFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(float))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_floatFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(Vector2))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_vector2Fields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(Vector2Int))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_vector2IntFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(Vector3))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_vector3Fields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(Vector3Int))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_vector3IntFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            #endregion
+            #region CollectionTypeChecks
+            else if (fieldType == typeof(bool[]))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_boolCollectionFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(int[]))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_intCollectionFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(float[]))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_floatCollectionFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(string[]))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_stringCollectionFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(Vector2[]))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_vector2CollectionFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(Vector2Int[]))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_vector2IntCollectionFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(Vector3[]))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_vector3CollectionFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            else if (fieldType == typeof(Vector3Int[]))
+            {
+                Internal.EditorField returned = null;
+
+                if (returned = Array.Find(_vector3IntCollectionFields, b => b.GuidPath == fileGuid && b.FieldName == fieldName))
+                {
+                    return returned;
+                }
+                else
+                {
+                    Debug.LogError($"Couldnt find the field {fieldName} at the guid {fileGuid} with the type {fieldType}");
+
+                    return returned;
+                }
+            }
+            #endregion
+
+            return null;
         }
 
         private Vector3Int ParseVector3Int(string vector3IntValue, string path, string fieldName)

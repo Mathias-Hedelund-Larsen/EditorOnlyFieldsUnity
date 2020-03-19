@@ -15,680 +15,255 @@ MonoBehaviour:
   _allFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: SomeBool
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: b9721fd0e77c1f5429ea9a83dc451b3d
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorBoolField
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: f80fc350192c6e043a2779e149ba7eb8
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: BoolCollectionInEditor
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: faf52d33eb35e25448038d03d51b9c77
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloat
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: e188a1ebef3bf0643bad6d0343f01445
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloatCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: ab012fa859b931e40b4550ce1e7817ef
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorInt
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: f68253a7ac1947f46be08af1d01e399d
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorIntCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: dd1772dd923b7e84cb32e75f68997655
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorString
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 4329398359e2a384791f78955fae006f
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorStringCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 7510cca0ad1d2eb4c89a98e10540a6f5
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: c59885822501e0d4ab6497b97ac9a8bf
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2Collection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 0e524695e6ea52641a20e9ba27eb3897
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2Int
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 3fbf3861bcb57b549bccb9f2d4511883
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2IntCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: deaa531622eb59d4c872f02fb9539ab1
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: d0fe8adce4f314a488eca7fbbee2fced
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3Collection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 6edf4d116ce7bcf449606e4535f63c5e
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3Int
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: b0330eaa7672e784ab1b0d591a51a6da
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EdtorVector3IntCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: aac17543064c3be49822ff9622a3ab34
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: SomeBool
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 0a332753e1f5adc42b0823b0daf51e06
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 40d5fb9962c1b1a468fbf724c5c704e7
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorBoolField
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 5bdedcd5f77f06441897b6e7e0cc1401
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 907e89b26ab20444a84f0758d4f3bddd
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: BoolCollectionInEditor
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 4a54c6dc3b8234d40bcd14b2dac836df
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 184b460ef71b4134b958560ec031e62d
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorFloat
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 5b7128025b64eae49947fea8f486073f
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 63937a044436f3e42a98cc8d2b26ce2c
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorFloatCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: aeab81f11ea120846941eb6057d7e936
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 849ec5ed721fca54fb35b1d7d1ee18cd
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorInt
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 66d2175839b5d244da3f7b18b0376dae
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: dfa81c9f9c567674e980181f185fc8a6
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorIntCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 40975cd1f2e46d147b21f15dc3d291a2
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: b8935be44bdcbe242aff191eda8d483b
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorString
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 4ea58ff6c5b6c414b8f86926027bc385
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 9accb2c39bd73a64b8ce8fbbf6c372cc
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorStringCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 0bb48940216723c4494776984e1f09db
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: bb7044cc920436c439c85615da556ffa
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector2
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: f283c526ac2008d4c9e8dbd73e6453cc
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 2d5388724ecfff5458d9bcaf914624b0
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector2Collection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: cc0c89c662e49ad498f0817b528d409c
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 51391bb609d3308488bb0ad314c3081c
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector2Int
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 070628c1e893eb0448e55a1104ebd9bc
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: f25f68532b2fefe49b8582b86e2a2c3a
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector2IntCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 64ed0d8cca348b94babc41fa20e6c4e6
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: e5818700536def4418b11c584af4de7f
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector3
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: ad3b6cb85006b194ebf6ebb4b7f8f88d
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 975d918e6ca25d649ae8cbd849384649
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector3Collection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 4de8dcbea8a07fa4eb1f3717cf306d58
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 55e33b9c0708ec947b59caa52d799370
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector3Int
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 74a006cffd8b82a448ca1d9470915220
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 1a0dc781703c3cd49b67d144257e9056
+    _guidPath: d345c319699245942bde79f8225bc3ec
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EdtorVector3IntCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 875430bfa68c85744abd6c36f24206c0
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: SomeBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: cac14ca6ef797ba4e90c572c15250895
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorBoolField
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 81e9220e4507d604c841f6062e8ea57e
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: BoolCollectionInEditor
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: e1d40ec1b581aa642a7f286b2cb1dd2f
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloat
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: ddcc2ef0f3005c142b0ce35488d607a9
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloatCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: a2ba21977df131a45a8d5fc59518c5b9
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorInt
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 25c95f3d24c36f946be00430a5a005cd
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorIntCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 687cd42bd4a3d8946b1d2459963ec398
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorString
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 0a6062187b0cd854ab32eb6010c76947
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorStringCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 12c97c9157b336c4dab89dbecfa31669
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: b46e600414766724f8f518302d0e7a3b
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2Collection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 1121f8359baea624b8d6b5e1e35c49f4
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2Int
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 56d19a609021b3c40bbd63392bc91628
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2IntCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 52b09da451a9bdc478800113d78b4164
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 8e9b093bda8cd4b458f3ab93346822d5
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3Collection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 9bcfea9f36571994681feb1800777c9b
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3Int
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: e9f1db17514c8cf40a5520219b5ed7dd
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EdtorVector3IntCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 92cfff4f91ad9e84892b11572f35309c
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
+    _objectID: 1007823545
+    _fieldID: 3b8c8b5428b839d40a55bb98e151dcda
+    _guidPath: d345c319699245942bde79f8225bc3ec
   _boolFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: SomeBool
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: b9721fd0e77c1f5429ea9a83dc451b3d
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1007823545
+    _fieldID: 40d5fb9962c1b1a468fbf724c5c704e7
+    _guidPath: d345c319699245942bde79f8225bc3ec
+    _fieldValue: 1
+    _controller: {fileID: 11400000}
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: EditorBoolField
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1007823545
+    _fieldID: 907e89b26ab20444a84f0758d4f3bddd
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: 0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorBoolField
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: f80fc350192c6e043a2779e149ba7eb8
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: 1
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: SomeBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 0a332753e1f5adc42b0823b0daf51e06
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
-    _fieldValue: 1
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorBoolField
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 5bdedcd5f77f06441897b6e7e0cc1401
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
-    _fieldValue: 1
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: SomeBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: cac14ca6ef797ba4e90c572c15250895
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: 1
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorBoolField
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 81e9220e4507d604c841f6062e8ea57e
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: 1
+    _controller: {fileID: 11400000}
   _floatFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorFloat
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: e188a1ebef3bf0643bad6d0343f01445
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: 5.5
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloat
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 5b7128025b64eae49947fea8f486073f
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
-    _fieldValue: 5.5
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloat
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: ddcc2ef0f3005c142b0ce35488d607a9
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: 5.5
+    _objectID: 1007823545
+    _fieldID: 63937a044436f3e42a98cc8d2b26ce2c
+    _guidPath: d345c319699245942bde79f8225bc3ec
+    _fieldValue: 0
+    _controller: {fileID: 11400000}
   _intFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorInt
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: f68253a7ac1947f46be08af1d01e399d
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: 0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorInt
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 66d2175839b5d244da3f7b18b0376dae
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: dfa81c9f9c567674e980181f185fc8a6
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: 0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorInt
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 25c95f3d24c36f946be00430a5a005cd
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: 0
+    _controller: {fileID: 11400000}
   _stringFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorString
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 4329398359e2a384791f78955fae006f
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: 
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorString
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 4ea58ff6c5b6c414b8f86926027bc385
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 9accb2c39bd73a64b8ce8fbbf6c372cc
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: 
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorString
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 0a6062187b0cd854ab32eb6010c76947
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: 
+    _controller: {fileID: 11400000}
   _vector2Fields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector2
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: c59885822501e0d4ab6497b97ac9a8bf
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: {x: 0, y: 0}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: f283c526ac2008d4c9e8dbd73e6453cc
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 2d5388724ecfff5458d9bcaf914624b0
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: {x: 0, y: 0}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: b46e600414766724f8f518302d0e7a3b
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: {x: 0, y: 0}
+    _controller: {fileID: 11400000}
   _vector2IntFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector2Int
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 3fbf3861bcb57b549bccb9f2d4511883
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: {x: 0, y: 0}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2Int
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 070628c1e893eb0448e55a1104ebd9bc
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: f25f68532b2fefe49b8582b86e2a2c3a
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: {x: 0, y: 0}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2Int
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 56d19a609021b3c40bbd63392bc91628
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: {x: 0, y: 0}
+    _controller: {fileID: 11400000}
   _vector3Fields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector3
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: d0fe8adce4f314a488eca7fbbee2fced
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: {x: 0, y: 0, z: 0}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: ad3b6cb85006b194ebf6ebb4b7f8f88d
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 975d918e6ca25d649ae8cbd849384649
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: {x: 0, y: 0, z: 0}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 8e9b093bda8cd4b458f3ab93346822d5
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: {x: 0, y: 0, z: 0}
+    _controller: {fileID: 11400000}
   _vector3IntFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector3Int
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: b0330eaa7672e784ab1b0d591a51a6da
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: {x: 0, y: 0, z: 0}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3Int
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 74a006cffd8b82a448ca1d9470915220
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 1a0dc781703c3cd49b67d144257e9056
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: {x: 0, y: 0, z: 0}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3Int
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: e9f1db17514c8cf40a5520219b5ed7dd
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: {x: 0, y: 0, z: 0}
+    _controller: {fileID: 11400000}
   _boolCollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: BoolCollectionInEditor
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: faf52d33eb35e25448038d03d51b9c77
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: 
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: BoolCollectionInEditor
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 4a54c6dc3b8234d40bcd14b2dac836df
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 184b460ef71b4134b958560ec031e62d
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: 
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: BoolCollectionInEditor
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: e1d40ec1b581aa642a7f286b2cb1dd2f
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: 
+    _controller: {fileID: 11400000}
   _floatCollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorFloatCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: ab012fa859b931e40b4550ce1e7817ef
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloatCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: aeab81f11ea120846941eb6057d7e936
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 849ec5ed721fca54fb35b1d7d1ee18cd
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorFloatCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: a2ba21977df131a45a8d5fc59518c5b9
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: []
+    _controller: {fileID: 11400000}
   _intCollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorIntCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: dd1772dd923b7e84cb32e75f68997655
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: 
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorIntCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 40975cd1f2e46d147b21f15dc3d291a2
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: b8935be44bdcbe242aff191eda8d483b
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: 
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorIntCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 687cd42bd4a3d8946b1d2459963ec398
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: 
+    _controller: {fileID: 11400000}
   _stringCollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorStringCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 7510cca0ad1d2eb4c89a98e10540a6f5
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorStringCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 0bb48940216723c4494776984e1f09db
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: bb7044cc920436c439c85615da556ffa
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorStringCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 12c97c9157b336c4dab89dbecfa31669
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: []
+    _controller: {fileID: 11400000}
   _vector2CollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector2Collection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 0e524695e6ea52641a20e9ba27eb3897
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2Collection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: cc0c89c662e49ad498f0817b528d409c
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 51391bb609d3308488bb0ad314c3081c
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2Collection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 1121f8359baea624b8d6b5e1e35c49f4
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: []
+    _controller: {fileID: 11400000}
   _vector2IntCollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector2IntCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: deaa531622eb59d4c872f02fb9539ab1
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2IntCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 64ed0d8cca348b94babc41fa20e6c4e6
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: e5818700536def4418b11c584af4de7f
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector2IntCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 52b09da451a9bdc478800113d78b4164
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: []
+    _controller: {fileID: 11400000}
   _vector3CollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EditorVector3Collection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: 6edf4d116ce7bcf449606e4535f63c5e
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3Collection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 4de8dcbea8a07fa4eb1f3717cf306d58
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 55e33b9c0708ec947b59caa52d799370
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorVector3Collection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 9bcfea9f36571994681feb1800777c9b
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: []
+    _controller: {fileID: 11400000}
   _vector3IntCollectionFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: EdtorVector3IntCollection
-    _sceneGuid: None
-    _objectID: 10596
-    _fieldID: aac17543064c3be49822ff9622a3ab34
-    _guidPath: 0bf11b3fb93d62c4c8095db10ea06214
-    _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EdtorVector3IntCollection
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1806453120
-    _fieldID: 875430bfa68c85744abd6c36f24206c0
-    _guidPath: 9d345612488faab47bcb345c682aa6e0
+    _objectID: 1007823545
+    _fieldID: 3b8c8b5428b839d40a55bb98e151dcda
+    _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: []
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EdtorVector3IntCollection
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 470668250
-    _fieldID: 92cfff4f91ad9e84892b11572f35309c
-    _guidPath: 4390bb4c712a8dd47bc62f2877ae3da0
-    _fieldValue: []
+    _controller: {fileID: 11400000}
