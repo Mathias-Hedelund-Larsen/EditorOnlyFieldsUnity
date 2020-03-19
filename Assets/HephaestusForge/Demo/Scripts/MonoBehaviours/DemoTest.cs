@@ -2,10 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-using System.Reflection;
-#endif
 
 public class DemoTest : MonoBehaviour
 {
@@ -28,19 +24,19 @@ public class DemoTest : MonoBehaviour
     private void Awake()
     {
 #if UNITY_EDITOR
-        var editorFieldsDataController = AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:EditorFieldsDataController")[0]),
-            typeof(ScriptableObject));
+        var editorFieldsDataController = UnityEditor.AssetDatabase.LoadAssetAtPath(UnityEditor.AssetDatabase.GUIDToAssetPath(
+            UnityEditor.AssetDatabase.FindAssets("t:EditorFieldsDataController")[0]), typeof(ScriptableObject));
 
         Type editorFieldsDataControllerType = editorFieldsDataController.GetType();
 
         var getValueInEditorPlaymodeMethod = editorFieldsDataControllerType.
-            GetMethod("GetValueInEditorPlayMode", BindingFlags.Instance | BindingFlags.NonPublic);
+            GetMethod("GetValueInEditorPlayMode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         var getFieldInEditorPlaymodeMethod = editorFieldsDataControllerType.
-            GetMethod("GetFieldInEditorPlaymode", BindingFlags.Instance | BindingFlags.NonPublic);
+            GetMethod("GetFieldInEditorPlaymode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
         var someBoolField = getFieldInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new object[] { "d345c319699245942bde79f8225bc3ec", "SomeBool", typeof(bool) });
 
-        var fieldValueReference = someBoolField.GetType().GetProperty("FieldValue", BindingFlags.Instance | BindingFlags.Public);
+        var fieldValueReference = someBoolField.GetType().GetProperty("FieldValue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
         fieldValueReference.SetValue(someBoolField, true);
 
         _stringEditorOnly = (string)getValueInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new object[] { "d345c319699245942bde79f8225bc3ec", "EditorString" });

@@ -115,6 +115,24 @@ MonoBehaviour:
     _objectID: 1007823545
     _fieldID: 3b8c8b5428b839d40a55bb98e151dcda
     _guidPath: d345c319699245942bde79f8225bc3ec
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _ts.Array.data[0].EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1007823545
+    _fieldID: 084431fee9653ef45803af83d42d3718
+    _guidPath: d345c319699245942bde79f8225bc3ec
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _ts.Array.data[1].EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1007823545
+    _fieldID: ee95180fc6c1e6a4088170c58e194f06
+    _guidPath: d345c319699245942bde79f8225bc3ec
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _ts.Array.data[2].EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1007823545
+    _fieldID: 114e63f3e9ef8d7479d6c3c1cdf710d2
+    _guidPath: d345c319699245942bde79f8225bc3ec
   _boolFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: SomeBool
@@ -129,6 +147,30 @@ MonoBehaviour:
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
     _objectID: 1007823545
     _fieldID: 907e89b26ab20444a84f0758d4f3bddd
+    _guidPath: d345c319699245942bde79f8225bc3ec
+    _fieldValue: 0
+    _controller: {fileID: 11400000}
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _ts.Array.data[0].EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1007823545
+    _fieldID: 084431fee9653ef45803af83d42d3718
+    _guidPath: d345c319699245942bde79f8225bc3ec
+    _fieldValue: 0
+    _controller: {fileID: 11400000}
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _ts.Array.data[1].EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1007823545
+    _fieldID: ee95180fc6c1e6a4088170c58e194f06
+    _guidPath: d345c319699245942bde79f8225bc3ec
+    _fieldValue: 0
+    _controller: {fileID: 11400000}
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: _ts.Array.data[2].EditorTestBool
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 1007823545
+    _fieldID: 114e63f3e9ef8d7479d6c3c1cdf710d2
     _guidPath: d345c319699245942bde79f8225bc3ec
     _fieldValue: 0
     _controller: {fileID: 11400000}

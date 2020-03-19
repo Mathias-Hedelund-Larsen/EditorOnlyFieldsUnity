@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace HephaestusForge.EditorFieldOnly
 {
@@ -757,10 +753,9 @@ namespace HephaestusForge.EditorFieldOnly
 
         public override void OnInspectorGUI()
         {
-            if (_shouldDrawBaseInspector)
-            {
-                base.OnInspectorGUI();
-            }
+            GUI.enabled = false;
+            EditorGUILayout.ObjectField(new GUIContent("Script"), _script, typeof(MonoScript), false);
+            GUI.enabled = true;
 
             EditorGUI.BeginChangeCheck();
 
@@ -804,6 +799,29 @@ namespace HephaestusForge.EditorFieldOnly
                     }
 
                     EditorUtility.SetDirty(_EditorFieldsDataController.targetObject);
+                }
+            }
+
+            if (_shouldDrawBaseInspector)
+            {
+                EditorGUI.BeginChangeCheck();
+                
+                SerializedProperty property = serializedObject.GetIterator();
+                bool expanded = true;
+
+                while (property.NextVisible(expanded))
+                {
+                    if (property.displayName != "Script")
+                    {
+                        EditorGUILayout.PropertyField(property, true);
+                    }
+
+                    expanded = false;
+                }
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedObject.ApplyModifiedProperties();
                 }
             }
 
