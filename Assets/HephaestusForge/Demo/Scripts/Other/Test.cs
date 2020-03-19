@@ -8,4 +8,10 @@ public sealed class Test
 {
     [SerializeField]
     private int _value;
+
+
+#if UNITY_EDITOR
+    
+      #endif
+      
 }

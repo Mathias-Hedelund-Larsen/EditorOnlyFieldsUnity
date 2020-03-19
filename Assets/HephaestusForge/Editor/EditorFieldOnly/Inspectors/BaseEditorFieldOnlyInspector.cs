@@ -31,7 +31,6 @@ namespace HephaestusForge.EditorFieldOnly
         private int _objectID;
         private string _filePath;
         private string _sceneGuid;
-        private bool _sceneWasSaved;
         private List<string> _fileDataList;
         private List<string> _fieldNames = new List<string>();
 
@@ -41,51 +40,8 @@ namespace HephaestusForge.EditorFieldOnly
 
         private void OnEnable()
         {
-            if (target is MonoBehaviour)
-            {
-                _script = MonoScript.FromMonoBehaviour((MonoBehaviour)target);
-            }
-            else if (target is ScriptableObject)
-            {
-                _script = MonoScript.FromScriptableObject((ScriptableObject)target);
-            }
-
-            if (AssetDatabase.Contains(target))
-            {
-                _sceneGuid = "None";
-                _objectID = target.GetInstanceID();
-            }
-            else if (PrefabStageUtility.GetCurrentPrefabStage() != null)
-            {
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabStageUtility.GetCurrentPrefabStage().prefabAssetPath);
-                var component = prefab.GetComponent(target.GetType());
-
-                if (!component)
-                {
-                    component = prefab.GetComponentInChildren(target.GetType());
-                }
-
-                _sceneGuid = "None";
-                _objectID = component.GetInstanceID();
-            }
-            else
-            {
-                SerializedObject serializedObject = new SerializedObject(target);
-                PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
-                inspectorModeInfo.SetValue(serializedObject, InspectorMode.Debug, null);
-
-                SerializedProperty localIdProp = serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
-
-                _sceneGuid = AssetDatabase.AssetPathToGUID((target as Component).gameObject.scene.path);
-                _objectID = localIdProp.intValue;
-
-                if (_objectID == 0 && !_sceneWasSaved)
-                {
-                    EditorSceneManager.sceneSaved += SetObjectID;
-
-                    _sceneWasSaved = EditorSceneManager.SaveScene((target as Component).gameObject.scene);
-                }
-            }
+            _script = target.GetScript();
+            target.GetSceneGuidAndObjectID(out _sceneGuid, out _objectID);            
 
             if (_EditorFieldsDataController == null)
             {
@@ -101,19 +57,7 @@ namespace HephaestusForge.EditorFieldOnly
             {
                 AssetDatabase.SaveAssets();
             }
-        }
-
-        private void SetObjectID(Scene scene)
-        {
-            SerializedObject serializedObject = new SerializedObject(target);
-            PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
-            inspectorModeInfo.SetValue(serializedObject, InspectorMode.Debug, null);
-
-            SerializedProperty localIdProp = serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
-
-            _sceneGuid = AssetDatabase.AssetPathToGUID((target as Component).gameObject.scene.path);
-            _objectID = localIdProp.intValue;
-        }
+        }     
 
         protected abstract void Enabled(out bool didRequestEditorField);
 

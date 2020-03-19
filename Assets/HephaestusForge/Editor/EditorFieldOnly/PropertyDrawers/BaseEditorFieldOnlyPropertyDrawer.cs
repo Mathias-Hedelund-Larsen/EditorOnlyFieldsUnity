@@ -863,62 +863,8 @@ namespace HephaestusForge.EditorFieldOnly
             }
 
             var target = property.serializedObject.targetObject;
-
-            if (target is ScriptableObject)
-            {
-                _script = MonoScript.FromScriptableObject((ScriptableObject)target);
-            }
-            else if (target is MonoBehaviour)
-            {
-                _script = MonoScript.FromMonoBehaviour((MonoBehaviour)target);
-            }
-
-            if (AssetDatabase.Contains(target))
-            {
-                _sceneGuid = "None";
-                _objectID = target.GetInstanceID();
-            }
-            else if (PrefabStageUtility.GetCurrentPrefabStage() != null)
-            {
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabStageUtility.GetCurrentPrefabStage().prefabAssetPath);
-                var component = prefab.GetComponent(target.GetType());
-
-                if (!component)
-                {
-                    component = prefab.GetComponentInChildren(target.GetType());
-                }
-
-                _sceneGuid = "None";
-                _objectID = component.GetInstanceID();
-            }
-            else
-            {
-                SerializedObject serializedObject = new SerializedObject(target);
-                PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
-                inspectorModeInfo.SetValue(serializedObject, InspectorMode.Debug, null);
-
-                SerializedProperty localIdProp = serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
-
-                _sceneGuid = AssetDatabase.AssetPathToGUID((target as Component).gameObject.scene.path);
-                _objectID = localIdProp.intValue;
-
-                if (_objectID == 0)
-                {
-                    EditorSceneManager.sceneSaved += (scene) =>
-                    {
-                        SerializedObject d_serializedObject = new SerializedObject(target);
-                        PropertyInfo d_inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
-                        d_inspectorModeInfo.SetValue(d_serializedObject, InspectorMode.Debug, null);
-
-                        SerializedProperty d_localIdProp = d_serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
-
-                        _sceneGuid = AssetDatabase.AssetPathToGUID((target as Component).gameObject.scene.path);
-                        _objectID = d_localIdProp.intValue;
-                    };
-
-                    EditorSceneManager.SaveScene((target as Component).gameObject.scene);
-                }
-            }
+            _script = target.GetScript();
+            target.GetSceneGuidAndObjectID(out _sceneGuid, out _objectID);            
 
             _requestedProperties.Add(_propertyPath, new List<EditorFieldDrawingCriteria>());
 

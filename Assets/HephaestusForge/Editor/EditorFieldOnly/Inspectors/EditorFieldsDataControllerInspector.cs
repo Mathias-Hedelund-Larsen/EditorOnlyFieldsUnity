@@ -154,12 +154,7 @@ namespace HephaestusForge
 
                                 for (int componentIndex = 0; componentIndex < components.Count; componentIndex++)
                                 {
-                                    SerializedObject serializedObject = new SerializedObject(components[componentIndex]);
-                                    inspectorModeInfo.SetValue(serializedObject, InspectorMode.Debug, null);
-
-                                    SerializedProperty localIdProp = serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
-
-                                    if (objectID.intValue == localIdProp.intValue)
+                                    if (objectID.intValue == components[componentIndex].GetLocalID())
                                     {
                                         exists = true;
                                         break;
@@ -179,8 +174,7 @@ namespace HephaestusForge
                     }
                     else
                     {
-                        exists = (UnityEngine.Object)typeof(UnityEngine.Object).GetMethod("FindObjectFromInstanceID", BindingFlags.NonPublic | BindingFlags.Static)
-                                    .Invoke(null, new object[] { objectID.intValue });
+                        exists = UnityEngineObjectExtensions.GetObjectByInstanceID(objectID.intValue);
                     }
 
                     if (!exists)
@@ -255,12 +249,7 @@ namespace HephaestusForge
 
                                         for (int componentIndex = 0; componentIndex < components.Count; componentIndex++)
                                         {
-                                            SerializedObject serializedObject = new SerializedObject(components[componentIndex]);
-                                            inspectorModeInfo.SetValue(serializedObject, InspectorMode.Debug, null);
-
-                                            SerializedProperty localIdProp = serializedObject.FindProperty("m_LocalIdentfierInFile");   //note the misspelling!
-
-                                            if (objectID.intValue == localIdProp.intValue)
+                                            if (objectID.intValue == components[componentIndex].GetLocalID())
                                             {
                                                 GUI.enabled = false;
 
@@ -299,8 +288,7 @@ namespace HephaestusForge
                             }
                             else
                             {
-                                UnityEngine.Object obj = (UnityEngine.Object)typeof(UnityEngine.Object).GetMethod("FindObjectFromInstanceID", BindingFlags.NonPublic | BindingFlags.Static)
-                                    .Invoke(null, new object[] { objectID.intValue });
+                                UnityEngine.Object obj = UnityEngineObjectExtensions.GetObjectByInstanceID(objectID.intValue);
 
                                 if (obj)
                                 {
