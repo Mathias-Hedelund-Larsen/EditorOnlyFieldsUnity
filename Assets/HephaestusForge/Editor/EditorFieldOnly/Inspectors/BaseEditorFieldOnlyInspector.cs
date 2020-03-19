@@ -824,6 +824,20 @@ namespace HephaestusForge.EditorFieldOnly
                     serializedObject.ApplyModifiedProperties();
                 }
             }
+            else
+            {
+                //The base info of a component
+                var iterator = serializedObject.GetIterator();
+                
+                //The script field in the editor
+                iterator.NextVisible(true);
+
+                //Getting the first custom field
+                if (iterator.NextVisible(true))
+                {
+                    CustomDraw(iterator);
+                }
+            }
 
             if (_requestedProperties.Any(rp => rp.EnableFieldAvailabilityForEditorPlayMode))
             {
@@ -840,6 +854,12 @@ namespace HephaestusForge.EditorFieldOnly
                 }
             }
         }
+
+        /// <summary>
+        /// Only implement functionality if _shouldDrawBaseInspector is false
+        /// </summary>
+        /// <param name="serializedProperty"></param>
+        protected abstract void CustomDraw(SerializedProperty serializedProperty);
 
         private string GetFieldValue(SerializedProperty serializedField, string fieldType)
         {

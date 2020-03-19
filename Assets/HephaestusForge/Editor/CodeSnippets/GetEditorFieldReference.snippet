@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippet Format="1.0.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <Title>GetEditorFieldReference</Title>
+    <Author>Mathias Hedelund Larsen</Author>
+    <Shortcut>GetEditorFieldReference</Shortcut>
+    <Description>A way to get a reference for an editor only field in Unity by PropertyInfo</Description>
+    <SnippetTypes>
+      <SnippetType>SurroundsWith</SnippetType>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal>
+        <ID>name</ID>
+        <Default>value</Default>
+      </Literal>
+    </Declarations>
+    <Code Language="Csharp">
+      <![CDATA[
+      #if UNITY_EDITOR
+		 //Getting a reference to the container of all Editor Only fields.
+		var editorFieldsDataController = UnityEditor.AssetDatabase.LoadAssetAtPath(UnityEditor.AssetDatabase.GUIDToAssetPath(
+            UnityEditor.AssetDatabase.FindAssets("t:EditorFieldsDataController")[0]), typeof(ScriptableObject));
+		
+		//Getting the type for of the container.
+        Type editorFieldsDataControllerType = editorFieldsDataController.GetType();
+		
+		//Using reflection to find the required method to get a given field reference.
+		var getFieldReferenceInEditorPlaymodeMethod = editorFieldsDataControllerType.
+            GetMethod("GetFieldInEditorPlaymode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+		
+		//Executing method to get the field reference.
+		var editorField = getFieldReferenceInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new object[] { "FileID", "NameOfField", /*The field type*/typeof() });
+		
+		//Getting a PropertyInfo to reference the value in the Editor only field, set value or get value for functionality.
+		var editorFieldValueReference = editorField.GetType().GetProperty("FieldValue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+		
+		editorFieldValueReference.GetValue(editorField);
+        editorFieldValueReference.SetValue(editorField, /*A relevant value*/);
+      #endif
+      ]]>
+    </Code>
+  </Snippet>
+</CodeSnippet>

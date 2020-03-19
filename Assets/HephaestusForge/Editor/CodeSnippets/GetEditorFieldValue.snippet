@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippet Format="1.0.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <Title>GetEditorFieldValue</Title>
+    <Author>Mathias Hedelund Larsen</Author>
+    <Shortcut>GetEditorFieldValue</Shortcut>
+    <Description>A way to get the value of an editor only field in Unity</Description>
+    <SnippetTypes>
+      <SnippetType>SurroundsWith</SnippetType>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal>
+        <ID>name</ID>
+        <Default>value</Default>
+      </Literal>
+    </Declarations>
+    <Code Language="Csharp">
+      <![CDATA[
+      #if UNITY_EDITOR
+		//Getting a reference to the container of all Editor Only fields.
+		var editorFieldsDataController = UnityEditor.AssetDatabase.LoadAssetAtPath(UnityEditor.AssetDatabase.GUIDToAssetPath(
+            UnityEditor.AssetDatabase.FindAssets("t:EditorFieldsDataController")[0]), typeof(ScriptableObject));
+		
+		//Getting the type for of the container.
+        Type editorFieldsDataControllerType = editorFieldsDataController.GetType();
+		
+		//Using reflection to find the required method to get a given field value.
+        var getFieldValueInEditorPlaymodeMethod = editorFieldsDataControllerType.
+            GetMethod("GetValueInEditorPlayMode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        
+        //Invoking the method to get the field value, get the FileID in the inspector.
+		System.object fieldVal = getFieldValueInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new System.object[] { "FileID", "NameOfField" });
+      #endif
+      ]]>
+    </Code>
+  </Snippet>
+</CodeSnippet>

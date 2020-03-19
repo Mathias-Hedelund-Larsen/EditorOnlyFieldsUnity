@@ -295,7 +295,6 @@ MonoBehaviour:
   _ts:
   - _value: 0
   - _value: 0
-  - _value: 0
 --- !u!4 &1007823546
 Transform:
   m_ObjectHideFlags: 0

@@ -5,42 +5,45 @@ using UnityEngine;
 
 public class DemoTest : MonoBehaviour
 {
-    //[SerializeField]
-    //private Test _t;
-
     [SerializeField]
     private Test[] _ts;
 
 #if UNITY_EDITOR
 
     [NonSerialized]
-    private string _stringEditorOnly;
+    private bool _editorBool;
 
     [NonSerialized]
-    private Vector2 _vector2EditorOnly;
+    private Vector3Int[] _editorVector3IntCollection;
 
 #endif
 
     private void Awake()
     {
+
 #if UNITY_EDITOR
+        //Getting a reference to the container of all Editor Only fields.
         var editorFieldsDataController = UnityEditor.AssetDatabase.LoadAssetAtPath(UnityEditor.AssetDatabase.GUIDToAssetPath(
             UnityEditor.AssetDatabase.FindAssets("t:EditorFieldsDataController")[0]), typeof(ScriptableObject));
 
+        //Getting the type for of the container.
         Type editorFieldsDataControllerType = editorFieldsDataController.GetType();
 
-        var getValueInEditorPlaymodeMethod = editorFieldsDataControllerType.
-            GetMethod("GetValueInEditorPlayMode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        var getFieldInEditorPlaymodeMethod = editorFieldsDataControllerType.
+        //Using reflection to find the required method to get a given field reference.
+        var getFieldReferenceInEditorPlaymodeMethod = editorFieldsDataControllerType.
             GetMethod("GetFieldInEditorPlaymode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
-        var someBoolField = getFieldInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new object[] { "d345c319699245942bde79f8225bc3ec", "SomeBool", typeof(bool) });
+        //Executing method to get the field reference.
+        var editorField = getFieldReferenceInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new object[] { "2a25e5da16e917043b0967cb9ced68b0", "EditorOnlyBool", /*The field type*/typeof(bool) });
 
-        var fieldValueReference = someBoolField.GetType().GetProperty("FieldValue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
-        fieldValueReference.SetValue(someBoolField, true);
+        //Getting a PropertyInfo to reference the value in the Editor only field, set value or get value for functionality.
+        var editorFieldValueReference = editorField.GetType().GetProperty("FieldValue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
 
-        _stringEditorOnly = (string)getValueInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new object[] { "d345c319699245942bde79f8225bc3ec", "EditorString" });
-        _vector2EditorOnly = (Vector2)getValueInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new object[] { "d345c319699245942bde79f8225bc3ec", "EditorVector2" });
+        for (int i = 0; i < _ts.Length; i++)
+        {
+            _ts[i].GetEditorFields($"_ts.Array.data[{i}]");
+        }
 #endif
+
     }
 }
