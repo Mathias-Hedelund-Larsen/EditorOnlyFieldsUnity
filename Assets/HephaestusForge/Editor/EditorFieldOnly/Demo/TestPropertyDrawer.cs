@@ -1,13 +1,12 @@
-﻿using HephaestusForge.EditorFieldOnly;
 using UnityEditor;
 using UnityEngine;
+using HephaestusForge.EditorFieldOnly;
 
 [CustomPropertyDrawer(typeof(Test))]
-public class TestPropertyDrawer : BaseEditorFieldOnlyPropertyDrawer
+public sealed class TestPropertyDrawer : BaseEditorFieldOnlyPropertyDrawer
 {
     protected override void Init()
     {
-        RequestBoolField("EditorTestBool", enableFieldAvailabilityForEditorPlayMode: true);
     }
 
     protected override int GetPropertyHeight(SerializedProperty[] children)
@@ -17,6 +16,5 @@ public class TestPropertyDrawer : BaseEditorFieldOnlyPropertyDrawer
 
     protected override void OnGUI(Rect position, SerializedProperty[] children)
     {
-        
-    }    
+    }
 }
