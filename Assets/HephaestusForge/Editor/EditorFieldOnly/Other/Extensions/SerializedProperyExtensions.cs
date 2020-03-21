@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace HephaestusForge.EditorFieldOnly
+namespace HephaestusForge
 {
     public static class SerializedProperyExtensions
     {

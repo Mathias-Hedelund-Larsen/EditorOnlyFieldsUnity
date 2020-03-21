@@ -74,9 +74,9 @@ namespace HephaestusForge.EditorFieldOnly
         [MenuItem("Assets/Create/HephaestusForge/Limited to one/EditorFieldsDataController", false, 0)]
         private static void CreateInstance()
         {
-            if (UnityEditor.AssetDatabase.FindAssets("t:EditorFieldsDataController").Length == 0)
+            if (AssetDatabase.FindAssets("t:EditorFieldsDataController").Length == 0)
             {
-                var path = UnityEditor.AssetDatabase.GetAssetPath(UnityEditor.Selection.activeObject);
+                var path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
                 if (path.Length > 0)
                 {
@@ -84,7 +84,7 @@ namespace HephaestusForge.EditorFieldOnly
 
                     if (Directory.Exists(path))
                     {
-                        UnityEditor.AssetDatabase.CreateAsset(obj, path + "/EditorFieldsDataController.asset");
+                        AssetDatabase.CreateAsset(obj, path + "/EditorFieldsDataController.asset");
 
                         return;
                     }
@@ -95,7 +95,7 @@ namespace HephaestusForge.EditorFieldOnly
 
                     if (Directory.Exists(path))
                     {
-                        UnityEditor.AssetDatabase.CreateAsset(obj, path + "/EditorFieldsDataController.asset");
+                        AssetDatabase.CreateAsset(obj, path + "/EditorFieldsDataController.asset");
 
                         return;
                     }

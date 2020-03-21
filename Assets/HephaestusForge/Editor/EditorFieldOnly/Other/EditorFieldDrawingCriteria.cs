@@ -1,20 +1,26 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 
-public sealed class EditorFieldDrawingCriteria 
+namespace HephaestusForge.EditorFieldOnly
 {
-    public string FieldName { get; }
-    public SerializedProperty SerializedProperty { get; }
-    public bool EnableFieldAvailabilityForEditorPlayMode { get; }
-    public bool VisibleAtEditorEditTime { get; }
-    public bool VisibleAtEditorPlayMode { get; }
-
-    public EditorFieldDrawingCriteria(string fieldName, SerializedProperty serializedProperty, bool enableFieldAvailabilityForEditorPlayMode, 
-        bool visibleAtEditorEditTime, bool visibleAtEditorPlayMode)
+    public sealed class EditorFieldDrawingCriteria
     {
-        FieldName = fieldName;
-        SerializedProperty = serializedProperty;
-        EnableFieldAvailabilityForEditorPlayMode = enableFieldAvailabilityForEditorPlayMode;
-        VisibleAtEditorEditTime = visibleAtEditorEditTime;
-        VisibleAtEditorPlayMode = visibleAtEditorPlayMode;
+        public string FieldName { get; }
+        public SerializedProperty SerializedProperty { get; }
+        public bool EnableFieldAvailabilityForEditorPlayMode { get; }
+        public bool VisibleAtEditorEditTime { get; }
+        public bool VisibleAtEditorPlayMode { get; }
+        public Action<SerializedProperty> OnDraw { get; }
+
+        public EditorFieldDrawingCriteria(string fieldName, SerializedProperty serializedProperty, bool enableFieldAvailabilityForEditorPlayMode,
+            bool visibleAtEditorEditTime, bool visibleAtEditorPlayMode, Action<SerializedProperty> onDraw)
+        {
+            FieldName = fieldName;
+            SerializedProperty = serializedProperty;
+            EnableFieldAvailabilityForEditorPlayMode = enableFieldAvailabilityForEditorPlayMode;
+            VisibleAtEditorEditTime = visibleAtEditorEditTime;
+            VisibleAtEditorPlayMode = visibleAtEditorPlayMode;
+            OnDraw = onDraw;
+        }
     }
 }

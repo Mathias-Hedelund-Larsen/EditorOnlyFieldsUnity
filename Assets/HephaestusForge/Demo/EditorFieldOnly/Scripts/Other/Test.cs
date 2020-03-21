@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -26,7 +24,8 @@ public sealed class Test
 			GetMethod("GetFieldInEditorPlaymode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
 		//Executing method to get the field reference.
-		var editorField = getFieldReferenceInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new object[] { "2a25e5da16e917043b0967cb9ced68b0", $"{path}.EditorTestBool", /*The field type*/typeof(bool) });
+		var editorField = getFieldReferenceInEditorPlaymodeMethod.Invoke(editorFieldsDataController, 
+			new object[] { "2a25e5da16e917043b0967cb9ced68b0", $"{path}.EditorTestBool", /*The field type*/typeof(bool) });
 
 		//Getting a PropertyInfo to reference the value in the Editor only field, set value or get value for functionality.
 		var editorFieldValueReference = editorField.GetType().GetProperty("FieldValue", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);

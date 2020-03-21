@@ -28,7 +28,7 @@ namespace HephaestusForge.EditorFieldOnly
 
         #region FieldRequestsAndSetup
         protected SerializedProperty RequestBoolField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -49,7 +49,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedBool,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -63,7 +63,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestBoolCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -85,7 +85,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedBoolCollection,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -99,7 +99,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestFloatField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -121,7 +121,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedFloat,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -135,7 +135,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestFloatCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -157,7 +157,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedFloatCollection,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -171,7 +171,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestIntField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -193,7 +193,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedInt,
-                     enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                     enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -207,7 +207,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestIntCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -229,7 +229,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedIntCollection,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -243,7 +243,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestStringField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -265,7 +265,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedString,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -279,7 +279,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestStringCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -301,7 +301,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedStringcollection,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -315,7 +315,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestVector2Field(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -337,7 +337,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector2,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -351,7 +351,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestVector2CollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -373,7 +373,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector2Collection,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -387,7 +387,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestVector2IntField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -409,7 +409,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector2Int,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -423,7 +423,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestVector2IntCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -445,7 +445,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector2IntCollection,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -459,7 +459,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestVector3Field(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -481,7 +481,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector3,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -495,7 +495,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestVector3CollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -517,7 +517,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector3Collection,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -531,7 +531,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestVector3IntField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -553,7 +553,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector3Int,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -567,7 +567,7 @@ namespace HephaestusForge.EditorFieldOnly
         }
 
         protected SerializedProperty RequestVector3IntCollectionField(string fieldName, bool enableFieldAvailabilityForEditorPlayMode = false,
-            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false)
+            bool visibleAtEditorEditTime = true, bool visibleAtEditorPlayMode = false, System.Action<SerializedProperty> onDraw = null)
         {
             if (!_fieldNames.Contains($"{_propertyPath}.{fieldName}"))
             {
@@ -589,7 +589,7 @@ namespace HephaestusForge.EditorFieldOnly
                 }
 
                 _requestedProperties[_propertyPath].Add(new EditorFieldDrawingCriteria(fieldName, serializedVector3IntCollection,
-                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode));
+                    enableFieldAvailabilityForEditorPlayMode, visibleAtEditorEditTime, visibleAtEditorPlayMode, onDraw));
 
                 _fieldNames.Add($"{_propertyPath}.{fieldName}");
 
@@ -1020,6 +1020,7 @@ namespace HephaestusForge.EditorFieldOnly
                                     new GUIContent(_requestedProperties[_propertyPath][i].FieldName), false);
                             }
 
+                            _requestedProperties[_propertyPath][i].OnDraw?.Invoke(_requestedProperties[_propertyPath][i].SerializedProperty);
                             position.y += EditorGUIUtility.singleLineHeight + _heightOffset;
                         }
                     }

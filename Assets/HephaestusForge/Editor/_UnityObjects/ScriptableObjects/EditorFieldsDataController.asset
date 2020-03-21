@@ -14,58 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _allFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorOnlyBool
+    _fieldName: MyVector
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1007823545
-    _fieldID: e9bb449f2c395774fa354befa3824d70
-    _guidPath: 2a25e5da16e917043b0967cb9ced68b0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EdtorOnlyVector3Array
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1007823545
-    _fieldID: 036bba77813f2f94fb6180c85609dfc5
-    _guidPath: 2a25e5da16e917043b0967cb9ced68b0
+    _objectID: 23886900
+    _fieldID: 9d2fee12ea858894fb3cbb8a66579558
+    _guidPath: 76a0fdee9a07a9f4d9eaef67f7125105
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: _ts.Array.data[0].EditorTestBool
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1007823545
-    _fieldID: b1568134c3f6eb0488bd140ecc7701a8
-    _guidPath: 2a25e5da16e917043b0967cb9ced68b0
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: _ts.Array.data[1].EditorTestBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1007823545
-    _fieldID: 47c484e6d433b6b4e827fbd214a59f0f
-    _guidPath: 2a25e5da16e917043b0967cb9ced68b0
+    _objectID: 23886900
+    _fieldID: b84c094e00510e04799289e5109f6121
+    _guidPath: 76a0fdee9a07a9f4d9eaef67f7125105
   _boolFields:
   - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EditorOnlyBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1007823545
-    _fieldID: e9bb449f2c395774fa354befa3824d70
-    _guidPath: 2a25e5da16e917043b0967cb9ced68b0
-    _fieldValue: 1
-    _controller: {fileID: 11400000}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
     _fieldName: _ts.Array.data[0].EditorTestBool
     _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1007823545
-    _fieldID: b1568134c3f6eb0488bd140ecc7701a8
-    _guidPath: 2a25e5da16e917043b0967cb9ced68b0
-    _fieldValue: 1
-    _controller: {fileID: 11400000}
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: _ts.Array.data[1].EditorTestBool
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1007823545
-    _fieldID: 47c484e6d433b6b4e827fbd214a59f0f
-    _guidPath: 2a25e5da16e917043b0967cb9ced68b0
-    _fieldValue: 1
+    _objectID: 23886900
+    _fieldID: b84c094e00510e04799289e5109f6121
+    _guidPath: 76a0fdee9a07a9f4d9eaef67f7125105
+    _fieldValue: 0
     _controller: {fileID: 11400000}
   _floatFields: []
   _intFields: []
   _stringFields: []
-  _vector2Fields: []
+  _vector2Fields:
+  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
+    _fieldName: MyVector
+    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
+    _objectID: 23886900
+    _fieldID: 9d2fee12ea858894fb3cbb8a66579558
+    _guidPath: 76a0fdee9a07a9f4d9eaef67f7125105
+    _fieldValue: {x: 5.5, y: 7.8}
+    _controller: {fileID: 11400000}
   _vector2IntFields: []
   _vector3Fields: []
   _vector3IntFields: []
@@ -76,14 +56,4 @@ MonoBehaviour:
   _vector2CollectionFields: []
   _vector2IntCollectionFields: []
   _vector3CollectionFields: []
-  _vector3IntCollectionFields:
-  - _usedInScript: {fileID: 11500000, guid: f6184aa5443dc8d4bb7905af1b9666a6, type: 3}
-    _fieldName: EdtorOnlyVector3Array
-    _sceneGuid: 3a12f87006cefd64e994b2e21ab6c3a4
-    _objectID: 1007823545
-    _fieldID: 036bba77813f2f94fb6180c85609dfc5
-    _guidPath: 2a25e5da16e917043b0967cb9ced68b0
-    _fieldValue:
-    - {x: 1, y: 23, z: 10}
-    - {x: -12, y: 99, z: 12}
-    _controller: {fileID: 11400000}
+  _vector3IntCollectionFields: []

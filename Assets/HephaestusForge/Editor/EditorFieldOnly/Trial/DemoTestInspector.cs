@@ -1,7 +1,7 @@
-﻿using HephaestusForge.EditorFieldOnly;
 using UnityEditor;
+using HephaestusForge.EditorFieldOnly;
 
-[CustomEditor(typeof(DemoTest))]
+[CustomEditor(typeof(Random.DemoTest))]
 public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
 {
     protected override void CustomDraw(SerializedProperty serializedProperty)
@@ -11,10 +11,6 @@ public sealed class DemoTestInspector : BaseEditorFieldOnlyInspector
 
     protected override void Enabled(out bool didRequestEditorField)
     {
-        RequestBoolField("EditorOnlyBool", visibleAtEditorPlayMode: true, enableFieldAvailabilityForEditorPlayMode: true);
-
-        RequestVector3IntCollectionField("EdtorOnlyVector3Array", visibleAtEditorPlayMode: true, enableFieldAvailabilityForEditorPlayMode: true);
-
         didRequestEditorField = true;
     }
 }

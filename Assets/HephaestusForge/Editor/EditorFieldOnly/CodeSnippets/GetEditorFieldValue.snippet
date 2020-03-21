@@ -32,7 +32,7 @@
             GetMethod("GetValueInEditorPlayMode", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         
         //Invoking the method to get the field value, get the FileID in the inspector.
-		System.object fieldVal = getFieldValueInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new System.object[] { "FileID", "NameOfField" });
+		System.Object fieldVal = getFieldValueInEditorPlaymodeMethod.Invoke(editorFieldsDataController, new System.Object[] { "FileID", "NameOfField" });
       #endif
       ]]>
     </Code>
